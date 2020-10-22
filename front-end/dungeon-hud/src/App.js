@@ -1,10 +1,13 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import characterSheet from './characterSheet/CharacterSheet';
 
 function App() {
   return (
     <div className="App">
+      <characterSheet />
+      {() => characterSheet}
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
