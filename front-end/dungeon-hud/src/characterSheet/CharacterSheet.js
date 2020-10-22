@@ -3,39 +3,10 @@ import './CharacterSheet.css';
 
 const characterSheet = props => (
     <div>
-        remember
+        it's the good bit of COBOL but without having to copy 
+        paste 400 lines of code to do anything with a fucking string.
 
-        remember
-
-        remember
-
-        remember
-
-        remember
-
-        remember
-
-        remember
-
-        remember
-
-        remember
-
-        re
-
-        mem
-
-        ber
-
-        locally? not really. 
-
-        nope..
-
-        I've got part of my burger project but a lot of it lives on my workstation.. and I'm not logging back into the VPN
-
-        we are - haven't set that bit up.
-
-        a very sad one - in the intitial create-react-app project.
+        yeah. type-safety #1
     </div>
 );
 

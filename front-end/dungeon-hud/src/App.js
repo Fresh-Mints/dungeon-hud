@@ -6,12 +6,11 @@ import characterSheet from './characterSheet/CharacterSheet';
 function App() {
   return (
     <div className="App">
-      <characterSheet />
-      {() => characterSheet}
+      {characterSheet}
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          mcFuckit
         </p>
         <a
           className="App-link"
