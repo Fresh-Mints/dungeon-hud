@@ -1,0 +1,22 @@
+{
+  "name": "dungeon-hud-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fresh-Mints/dungeon-hud.git"
+  },
+  "author": "matt kerkstra",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Fresh-Mints/dungeon-hud/issues"
+  },
+  "homepage": "https://github.com/Fresh-Mints/dungeon-hud#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
