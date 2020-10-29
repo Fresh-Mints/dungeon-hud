@@ -11,4 +11,3 @@ const characterSheet = props => (
 );
 
 export default characterSheet;
-
