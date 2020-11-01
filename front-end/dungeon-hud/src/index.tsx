@@ -1,14 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
-import characterSheet from './components/characterSheet/CharacterSheet';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
     <App />
-    {characterSheet}
   </React.StrictMode>,
   document.getElementById('root')
 );
