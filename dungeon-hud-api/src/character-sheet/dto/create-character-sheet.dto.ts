@@ -1,5 +1,28 @@
-import { IsArray, IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { ObjectType, Field, ID } from 'type-graphql';
+import { ObjectType, Field, ID} from 'type-graphql';
+import { IsNotEmpty, IsNumber, IsObject, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
+
+@ObjectType()
+export class AbilityScores {
+    @Field()
+    @IsNumber()
+    readonly strength: number;
+    @Field()
+    @IsNumber()
+    readonly dexterity: number;
+    @Field()
+    @IsNumber()
+    readonly constitution: number;
+    @Field()
+    @IsNumber()
+    readonly intelligence: number;
+    @Field()
+    @IsNumber()
+    readonly wisdom: number;
+    @Field()
+    @IsNumber()
+    readonly charisma: number;
+}
 
 @ObjectType()
 export class CharacterSheetType {
@@ -10,20 +33,11 @@ export class CharacterSheetType {
     @IsString()
     @IsNotEmpty()
     readonly name: string;
-    @Field(() => [AbilityScore])
-    @IsArray()
-    readonly abilityScores: [AbilityScore];
+    @Field()
+    @IsObject()
+    @Type(() => AbilityScores)
+    readonly abilityScores?: AbilityScores;
     @Field()
     @IsString()
-    readonly description: string;
-}
-
-@ObjectType()
-export class AbilityScore {
-    @Field()
-    @IsString()
-    readonly name: string;
-    @Field()
-    @IsNumber()
-    readonly number: number;
+    readonly description?: string;
 }

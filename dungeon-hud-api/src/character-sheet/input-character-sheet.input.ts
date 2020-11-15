@@ -1,19 +1,37 @@
 import { InputType, Field} from 'type-graphql';
+import { IsNumber, IsObject, IsString } from 'class-validator';
+
+@InputType()
+export class AbilityScores {
+    @Field()
+    @IsNumber()
+    readonly strength: number;
+    @Field()
+    @IsNumber()
+    readonly dexterity: number;
+    @Field()
+    @IsNumber()
+    readonly constitution: number;
+    @Field()
+    @IsNumber()
+    readonly intelligence: number;
+    @Field()
+    @IsNumber()
+    readonly wisdom: number;
+    @Field()
+    @IsNumber()
+    readonly charisma: number;
+}
 
 @InputType()
 export class CharacterSheetInput {
     @Field()
-    readonly name: string;
-    @Field(() => [AbilityScore])
-    readonly abilityScores: [AbilityScore];
-    @Field()
-    readonly description: string;
-}
-
-@InputType()
-export class AbilityScore {
-    @Field()
+    @IsString()
     readonly name: string;
     @Field()
-    readonly number: number;
+    @IsObject()
+    readonly abilityScores?: AbilityScores;
+    @Field()
+    @IsString()
+    readonly description?: string;
 }

@@ -1,12 +1,16 @@
-import { Document, Types } from 'mongoose';
+import { Document } from 'mongoose';
+
+export interface AbilityScores extends Document {
+    readonly strength: number;
+    readonly dexterity: number;
+    readonly constitution: number;
+    readonly intelligence: number;
+    readonly wisdom: number;
+    readonly charisma: number;
+}
 
 export interface CharacterSheet extends Document { 
     readonly name: string;
-    readonly abilityScores: Types.Array<AbilityScore>;
-    readonly description: string;
-}
-
-export interface AbilityScore extends Document {
-    readonly name: string;
-    readonly number: number;
+    readonly abilityScores?: AbilityScores;
+    readonly description?: string;
 }

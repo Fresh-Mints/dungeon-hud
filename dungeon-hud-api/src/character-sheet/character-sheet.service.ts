@@ -26,7 +26,7 @@ export class CharacterSheetService {
         return await this.characterSheetModel.findByIdAndRemove(id);
     }
     
-    async update(id: string, characterSheet: CharacterSheet): Promise<CharacterSheetType> {
+    async update(id: string, characterSheet: CharacterSheetInput): Promise<CharacterSheetType> {
         return await this.characterSheetModel.findByIdAndUpdate(id, characterSheet, { new: true });
     }
-}
+};

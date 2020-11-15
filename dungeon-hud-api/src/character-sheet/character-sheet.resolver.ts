@@ -21,7 +21,7 @@ export class CharacterSheetResolver {
     async updateCharacterSheet(
         @Args('id') id: string,
         @Args('input') input: CharacterSheetInput,
-    ): Promise<CharacterSheetInput> {
+    ): Promise<CharacterSheetType> {
         return this.characterSheetService.update(id, input);
     }
 
