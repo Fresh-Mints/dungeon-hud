@@ -1,11 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import characterSheetsReducer from './store/reducers/characterSheets';
+import thunk from 'redux-thunk';
 
+const composeEnhancers = process.env.NODE_ENV === 'development' ?
+  (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
+
+const rootReducer = combineReducers({
+  characterSheetState: characterSheetsReducer,
+});
+
+const store = createStore(rootReducer, composeEnhancers(
+  applyMiddleware(thunk)
+));
+  
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

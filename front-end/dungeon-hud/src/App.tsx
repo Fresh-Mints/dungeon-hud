@@ -1,12 +1,17 @@
 import React from 'react';
-import CharacterSheet from './components/characterSheet/CharacterSheet';
+import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
+import { connect, Provider } from 'react-redux'
+import CharacterSheet from './components/containers/characterSheet/CharacterSheet';
+import { ICharacterSheetState } from './models/characterSheet.model';
+import reducer from './store/reducers/characterSheets'
+import { combineReducers, createStore } from 'redux';
 
 function App() {
   return (
-    <div className="App">
       <CharacterSheet />
-    </div>
+    
   );
 }
 
 export default App;
+
