@@ -1,17 +1,29 @@
 import React from 'react';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import { connect, Provider } from 'react-redux'
-import CharacterSheet from './components/containers/characterSheet/CharacterSheet';
-import { ICharacterSheetState } from './models/characterSheet.model';
-import reducer from './store/reducers/characterSheets'
 import { combineReducers, createStore } from 'redux';
+import { Navigation } from './components/containers/Navigation/Navigation';
+
+import CharacterSheet from './components/containers/characterSheet/CharacterSheet';
+import reducer from './store/reducers/characterSheets';
+
+import Examples from './components/containers/examples';
+
 
 function App() {
+  let routes = (
+    <Switch>
+      <Route path='/characterSheet' component={CharacterSheet} />
+      <Route path='/examples' component={Examples} />
+    </Switch>    
+  );
   return (
-      <CharacterSheet />
-    
+    <div>
+      <Navigation />
+      {routes}
+    </div>
   );
 }
 
-export default App;
+export default withRouter(App);
 
