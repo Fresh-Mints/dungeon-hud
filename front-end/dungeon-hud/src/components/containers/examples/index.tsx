@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
-import {BinarySearchTreeOptions} from './BinarySearchTree';
+import {BinarySearchTreeOptions} from './BinarySearch/BinarySearchTree';
 
 const Examples = () => {
     return (

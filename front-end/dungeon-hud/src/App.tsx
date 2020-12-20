@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './App.module.css';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import { connect, Provider } from 'react-redux'
 import { combineReducers, createStore } from 'redux';
@@ -18,7 +19,7 @@ function App() {
     </Switch>    
   );
   return (
-    <div>
+    <div className={styles.App}>
       <Navigation />
       {routes}
     </div>
@@ -26,4 +27,3 @@ function App() {
 }
 
 export default withRouter(App);
-

@@ -5,5 +5,5 @@ export interface INode {
 }
 
 export interface INodeState {
-    nodes: INode[];
+    nodes?: INode[];
 }
