@@ -1,0 +1,22 @@
+.NavigationItem {
+    margin: 10px 0;
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    font-family:Arial, Helvetica, sans-serif;
+    color: rgb(68, 0, 255);
+}
+
+.NavigationItem a {
+    color: #02a826;
+    text-decoration: none;
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+}
+
+.NavigationItem a:hover,
+.Navigationitem a:active,
+.NavigationItem a:active {
+    color: #c84040;
+}

@@ -11,7 +11,6 @@ export interface ICharacterSheet extends Document {
 };
 
 // STEP 1: DEFINE MONGOOSE SCHEMA AND MODEL
-
 const CharacterSheetSchema = new mongoose.Schema({
     name: { type: String, required: true },
     abilityScores: {

@@ -1,0 +1,16 @@
+.Navigation {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    height: 100%;
+    background-color: rgb(43, 43, 43);
+}
+
+@media (min-width: 500px) {
+    .Navigation {
+        flex-flow: row;
+    }
+}
