@@ -6,6 +6,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import characterSheetsReducer from './store/reducers/characterSheets';
 import thunk from 'redux-thunk';
+import { BrowserRouter } from 'react-router-dom';
 
 const composeEnhancers = process.env.NODE_ENV === 'development' ?
   (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
@@ -21,7 +22,9 @@ const store = createStore(rootReducer, composeEnhancers(
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

@@ -1,21 +1,13 @@
 import { Button, List, ListItemText, TextField } from '@material-ui/core';
 import React, { ChangeEvent, useState } from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './CharacterSheet.css';
 import { addCharacterSheet, removeCharacterSheet } from '../../../store/actions/characterSheets';
-import { ICharacterSheet, ICharacterSheetState } from '../../../models/characterSheet.model';
-import * as actionTypes from '../../../store/actions/actionTypes';
+import { ICharacterSheet } from '../../../models/characterSheet.model';
 import { IRootState } from '../../../models/rootState';
-
-// interface IProps {
-//     characterSheetState: ICharacterSheetState;
-//     addCharacterSheet: (characterSheet :ICharacterSheet) => void;
-//     removeCharacterSheet: (id :string) => void;
-// }
 
 const CharacterSheet = () => {
     const [name, setName] = useState('');
-    const [names, setNames] = useState<string[]>([]);
 
     const characterSheets = useSelector((state: IRootState) => state.characterSheetState.characterSheets);
     const dispatch = useDispatch();
@@ -68,13 +60,5 @@ const CharacterSheet = () => {
         </div>
     );
 };
-
-// const mapStateToProps = (state: ICharacterSheetState) => {
-//     return {
-//         characterSheets: state.characterSheets,
-//     }
-// }
-
-// const mapDispatchToProps = {addCharacterSheet, removeCharacterSheet}
 
 export default CharacterSheet;
