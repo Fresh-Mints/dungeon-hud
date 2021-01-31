@@ -1,6 +1,5 @@
 import styles from './Navigation.module.css';
-import React, { ChangeEvent, useState } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import { NavigationItem } from './NavigationItem/NavigationItem';
 
 interface Navigation {

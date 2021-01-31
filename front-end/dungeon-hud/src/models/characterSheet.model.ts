@@ -1,4 +1,4 @@
-import { IAbilityScores } from './abilityScores.model'
+import { emptyAbilityScores, IAbilityScores } from './abilityScores.model'
 
 export interface ICharacterSheet {
     id: string;
@@ -9,4 +9,11 @@ export interface ICharacterSheet {
 
 export interface ICharacterSheetState {
     characterSheets: ICharacterSheet[];
+}
+
+export const emptyCharacter = {
+    id: '',
+    name: '',
+    abilityScores: emptyAbilityScores,
+    description: '',
 }

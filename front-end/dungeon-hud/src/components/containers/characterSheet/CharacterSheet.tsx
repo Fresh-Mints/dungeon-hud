@@ -1,19 +1,41 @@
-import { Button, List, ListItemText, TextField } from '@material-ui/core';
+import { Button, FormControl, InputLabel, List, ListItemText, makeStyles, MenuItem, Select, TextField } from '@material-ui/core';
 import React, { ChangeEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import './CharacterSheet.css';
+import styles from './CharacterSheet.module.scss';
 import { addCharacterSheet, removeCharacterSheet } from '../../../store/actions/characterSheets';
-import { ICharacterSheet } from '../../../models/characterSheet.model';
+import { emptyCharacter, ICharacterSheet } from '../../../models/characterSheet.model';
 import { IRootState } from '../../../models/rootState';
+import { IAbilities } from '../../../models/abilityScores.model';
+
+const useStyles = makeStyles({
+    root: {
+        marginBottom: '1rem',
+    },
+    scores: {
+        margin: '1rem',
+    },
+});
 
 const CharacterSheet = () => {
-    const [name, setName] = useState('');
+    const [newCharacter, setNewCharacter] = useState(emptyCharacter);
+
+    const classes = useStyles();
 
     const characterSheets = useSelector((state: IRootState) => state.characterSheetState.characterSheets);
     const dispatch = useDispatch();
 
     const nameChangedHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setName(e.target.value);
+        setNewCharacter({...newCharacter, name: e.target.value});
+    }
+
+    const descriptionChangedHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setNewCharacter({...newCharacter, description: e.target.value});
+    }
+
+    const scoreChangedHandler = (value: number, ability: IAbilities) => {
+        const abilityScoresCopy = {...newCharacter.abilityScores};
+        abilityScoresCopy[ability] = value;
+        setNewCharacter({...newCharacter, abilityScores: abilityScoresCopy});
     }
 
     const clickButtonHandler = () => {
@@ -21,20 +43,9 @@ const CharacterSheet = () => {
         if (characterSheets.length > 0) {
             id = characterSheets[characterSheets.length-1].id + 1;
         }
-        const characterSheet: ICharacterSheet = {
-            name: name,
-            id: id,
-            abilityScores: {
-                strength: 2,
-                dexterity: 3,
-                constitution: 5,
-                charisma: 12,
-                intelligence: 18,
-                wisdom: 20,
-            }
-        };
-        dispatch(addCharacterSheet(characterSheet));
-        setName('');
+    
+        dispatch(addCharacterSheet({...newCharacter, id: id}));
+        setNewCharacter(emptyCharacter);
     }
 
     const clickNameHandler = (id: string) => {
@@ -45,14 +56,110 @@ const CharacterSheet = () => {
         <ListItemText primary={c.name} onClick={() => clickNameHandler(c.id)}/>
     ));
 
+    const scoreValues: JSX.Element[] = [];
+    for (let i = 0; i <= 20; i++) {
+        scoreValues.push(<MenuItem value={i}>{i}</MenuItem>);
+    }
+
     return (
-        <div>
+        <div className={styles.characterSheet}>
             <TextField
                 id='standard-basic'
-                label='Character Name'
                 onChange={nameChangedHandler}
-                value={name}
+                value={newCharacter.name}
+                helperText='Character Name'
+                autoComplete='off'
+                className={classes.root}
             />
+            <TextField
+                id='standard-basic'
+                helperText='Description'
+                onChange={descriptionChangedHandler}
+                autoComplete='off'
+                value={newCharacter.description}
+                multiline
+                className={classes.root}
+            />
+            <div className={styles.scores}>
+                <FormControl className={classes.root}>
+                    <InputLabel id='demo-simple-select-label'>Strength</InputLabel>
+                    <Select
+                        className={classes.scores}
+                        labelId='demo-simple-select-label'
+                        id='demo-simple-select'
+                        value={newCharacter.abilityScores.strength}
+                        name='strength'
+                        onChange={(event) => scoreChangedHandler(event.target.value as number, 'strength')}
+                    >
+                    {scoreValues}
+                    </Select>
+                </FormControl>
+                <FormControl className={classes.root}>
+                    <InputLabel id='demo-simple-select-label'>Dexterity</InputLabel>
+                    <Select
+                        className={classes.scores}
+                        labelId='demo-simple-select-label'
+                        id='demo-simple-select'
+                        value={newCharacter.abilityScores.dexterity}
+                        name='dexterity'
+                        onChange={(event) => scoreChangedHandler(event.target.value as number, 'dexterity')}
+                    >
+                    {scoreValues}
+                    </Select>
+                </FormControl>
+                <FormControl className={classes.root}>
+                    <InputLabel id='demo-simple-select-label'>Constitution</InputLabel>
+                    <Select
+                        className={classes.scores}
+                        labelId='demo-simple-select-label'
+                        id='demo-simple-select'
+                        value={newCharacter.abilityScores.constitution}
+                        name='constitution'
+                        onChange={(event) => scoreChangedHandler(event.target.value as number, 'constitution')}
+                    >
+                    {scoreValues}
+                    </Select>
+                </FormControl>
+                <FormControl className={classes.root}>
+                    <InputLabel id='demo-simple-select-label'>Intelligence</InputLabel>
+                    <Select
+                        className={classes.scores}
+                        labelId='demo-simple-select-label'
+                        id='demo-simple-select'
+                        value={newCharacter.abilityScores.intelligence}
+                        name='intelligence'
+                        onChange={(event) => scoreChangedHandler(event.target.value as number, 'intelligence')}
+                    >
+                    {scoreValues}
+                    </Select>
+                </FormControl>
+                <FormControl className={classes.root}>
+                    <InputLabel id='demo-simple-select-label'>Wisdom</InputLabel>
+                    <Select
+                        className={classes.scores}
+                        labelId='demo-simple-select-label'
+                        id='demo-simple-select'
+                        value={newCharacter.abilityScores.wisdom}
+                        name='wisdom'
+                        onChange={(event) => scoreChangedHandler(event.target.value as number, 'wisdom')}
+                    >
+                    {scoreValues}
+                    </Select>
+                </FormControl>
+                <FormControl className={classes.root}>
+                    <InputLabel id='demo-simple-select-label'>Charisma</InputLabel>
+                    <Select
+                        className={classes.scores}
+                        labelId='demo-simple-select-label'
+                        id='demo-simple-select'
+                        value={newCharacter.abilityScores.charisma}
+                        name='charisma'
+                        onChange={(event) => scoreChangedHandler(event.target.value as number, 'charisma')}
+                    >
+                    {scoreValues}
+                    </Select>
+                </FormControl>
+            </div>
             <Button variant='contained' color='primary' onClick={clickButtonHandler}>Accept</Button>
             <List>
                 {characterList}
