@@ -1,0 +1,10 @@
+{
+    "scripts": {
+        "api": "cd fandi-api && npm run start:dev",
+        "client": "cd vpm && npm start",
+        "start": "concurrently \"npm run api\" \"npm run client\" "
+    },
+    "devDependencies": {
+        "concurrently": "^1.0.0"
+    }
+}

@@ -1,11 +1,13 @@
 {
 	"folders": [
 		{
-			"path": "front-end\\dungeon-hud"
-		},
-		{
-			"path": "dungeon-hud-api"
+			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"eslint.codeAction.showDocumentation": {
+		
+			"enable": true
+		}
+	}
 }
