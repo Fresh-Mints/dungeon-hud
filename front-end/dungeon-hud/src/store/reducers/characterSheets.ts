@@ -6,7 +6,6 @@ const initialState:  ICharacterSheetState = {
 };
 
 const addCharacterSheet = ( state: ICharacterSheetState, action: actionTypes.IAddCharacterSheetAction ) => {
-    // This is gross but will fix later
     return {
         characterSheets: [...state.characterSheets, action.characterSheet]
     };
