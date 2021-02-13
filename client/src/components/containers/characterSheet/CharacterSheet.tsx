@@ -3,7 +3,7 @@ import React, { ChangeEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './CharacterSheet.module.scss';
 import { addCharacterSheet, removeCharacterSheet } from '../../../store/actions/characterSheets';
-import { emptyCharacter, ICharacterSheet } from '../../../models/characterSheet.model';
+import { emptyCharacter } from '../../../models/characterSheet.model';
 import { IRootState } from '../../../models/rootState';
 import { IAbilities } from '../../../models/abilityScores.model';
 
@@ -21,6 +21,7 @@ const CharacterSheet = () => {
 
     const classes = useStyles();
 
+    // rab Redux state and actions
     const characterSheets = useSelector((state: IRootState) => state.characterSheetState.characterSheets);
     const dispatch = useDispatch();
 
@@ -55,6 +56,7 @@ const CharacterSheet = () => {
         dispatch(removeCharacterSheet(id));
     }
 
+    // Create the list of character sheets
     const characterList = characterSheets.map((c, index) => (
         <div key={index}>
             <ListItemText primary={c.name} onClick={() => clickNameHandler(c.id)} />
@@ -68,8 +70,9 @@ const CharacterSheet = () => {
         </div>
     ));
 
+    // 
     const scoreValues: JSX.Element[] = [];
-    for (let i = 0; i <= 20; i++) {
+    for (let i = 1; i <= 20; i++) {
         scoreValues.push(<MenuItem value={i}>{i}</MenuItem>);
     }
 
