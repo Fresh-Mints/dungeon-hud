@@ -13,6 +13,6 @@ export const AbilityScoresSchema = new mongoose.Schema({
 
 export const CharacterSheetSchema = new mongoose.Schema({
     name: String,
-    abilityScores: [AbilityScoresSchema],
+    abilityScores: AbilityScoresSchema,
     description: String,
 });
