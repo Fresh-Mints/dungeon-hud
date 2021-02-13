@@ -39,6 +39,9 @@ const CharacterSheet = () => {
     }
 
     const clickButtonHandler = () => {
+        if (!newCharacter.name) {
+            return;
+        }
         let id = '0';
         if (characterSheets.length > 0) {
             id = characterSheets[characterSheets.length-1].id + 1;
@@ -53,7 +56,16 @@ const CharacterSheet = () => {
     }
 
     const characterList = characterSheets.map((c, index) => (
-        <ListItemText primary={c.name} onClick={() => clickNameHandler(c.id)}/>
+        <div key={index}>
+            <ListItemText primary={c.name} onClick={() => clickNameHandler(c.id)} />
+            <ListItemText primary={c.description} />
+            <ListItemText primary={'Strength - ' + c.abilityScores.strength} />
+            <ListItemText primary={'Dexterity - ' + c.abilityScores.dexterity} />
+            <ListItemText primary={'Constitution - ' + c.abilityScores.constitution} />
+            <ListItemText primary={'Intelligence - ' + c.abilityScores.intelligence} />
+            <ListItemText primary={'Wisdom - ' + c.abilityScores.wisdom} />
+            <ListItemText primary={'Charisma - ' + c.abilityScores.charisma} />
+        </div>
     ));
 
     const scoreValues: JSX.Element[] = [];
