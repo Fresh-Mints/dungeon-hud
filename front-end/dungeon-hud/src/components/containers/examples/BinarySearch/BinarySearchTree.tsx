@@ -2,6 +2,7 @@ import React, { ChangeEvent, useReducer, useState } from 'react';
 import { Button, List, ListItemText, TextField } from '@material-ui/core';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { INode, INodeState } from '../../../../models/nodes.model';
+import styles from './BinarySearchTree.module.css';
 
 function getRandomInt(min: number, max: number) {
     min = Math.ceil(min);
@@ -10,7 +11,7 @@ function getRandomInt(min: number, max: number) {
 }
 
 function getRandomColor() {
-    return Math.floor(Math.random() * 16777215).toString(16)
+    return '#' + Math.floor(Math.random() * 16777215).toString(16)
 }
 
 function traverseTree(node: INode | undefined, array: INode[]) {
@@ -58,6 +59,7 @@ export const BinarySearchTreeOptions = () => {
     const [options, setOptions] = useState({amount: 10, min: 1, max: 200})
     const [tree, setTree] = useState<INode[]>([]);
     const [displayGraph, switchGraphDisplay] = useState(false);
+    const [treeGraph, setTreeGraph] = useState(<div/>);
     
     const updateOptions = (event: ChangeEvent<HTMLInputElement>) => {
         const {name, value} = event.target;
@@ -76,7 +78,6 @@ export const BinarySearchTreeOptions = () => {
             tree[i] = node
         }
         console.log(tree);
-        SortTree(tree);
     }
 
     // Given an array, return a BST
@@ -89,13 +90,18 @@ export const BinarySearchTreeOptions = () => {
         setTree(sortedTree);
     }
 
+    const deleteNodeHandler = (event: MouseEvent) => {
+        
+    }
+
     //Build sorted binary tree using INode.value as the key.
     //
     const generateTreeHandler = () => {
         switchGraphDisplay(true);
         setTree([])
         GenerateUnsortedTree(options.amount, options.min, options.max, tree);
-    }
+        SortTree(tree);
+    };
 
     return (
         <div>
@@ -125,7 +131,17 @@ export const BinarySearchTreeOptions = () => {
             >
                 Grow Tree
             </Button>
-{/*             {displayGraph ? <Tree/> : null}
- */}        </div>
+            <div className={styles.treeGraphContainer}>
+                {tree.map(node => 
+                    <span 
+                        key={node.id} 
+                        className={styles.node}
+                        style={{backgroundColor: node.color}}
+                    >
+                        {node.value}
+                    </span>
+                )}
+            </div>
+        </div>
     );
 }
