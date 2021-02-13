@@ -6,7 +6,6 @@ const user = {
 };
 
 const url = '0.0.0.0:4000/graphql';
-
 export interface ICharacterSheet {
     id: string;
     name: string;
