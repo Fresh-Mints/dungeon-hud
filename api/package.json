@@ -31,8 +31,6 @@
     "class-validator": "^0.12.2",
     "dotenv": "^8.2.0",
     "graphql": "^15.4.0",
-    "graphql-compose": "^7.22.1",
-    "graphql-compose-mongoose": "^9.0.0",
     "graphql-tools": "^7.0.1",
     "mongoose": "^5.10.14",
     "reflect-metadata": "^0.1.13",

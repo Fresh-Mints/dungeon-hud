@@ -1,0 +1,43 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type AbilityScores {
+  charisma: Float!
+  constitution: Float!
+  dexterity: Float!
+  intelligence: Float!
+  strength: Float!
+  wisdom: Float!
+}
+
+type CharacterSheet {
+  _id: String!
+  abilityScores: [String!]!
+  name: String!
+}
+
+input CreateAbilityScoreInput {
+  charisma: Float!
+  constitution: Float!
+  dexterity: Float!
+  intelligence: Float!
+  strength: Float!
+  wisdom: Float!
+}
+
+input CreateCharacterSheetInput {
+  abilityScores: [String!]!
+  description: String!
+  name: String!
+}
+
+type Mutation {
+  createAbilityScores(payload: CreateAbilityScoreInput!): AbilityScores!
+  createCharacterSheet(payload: CreateCharacterSheetInput!): CharacterSheet!
+}
+
+type Query {
+  abilityScore(_id: String!): AbilityScores!
+  characterSheet(_id: String!): CharacterSheet!
+}

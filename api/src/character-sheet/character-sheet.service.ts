@@ -1,31 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { CharacterSheetType } from './dto/create-character-sheet.dto';
-import { CharacterSheet } from './interfaces/character-sheet.interface';
+import { Model, Types } from 'mongoose';
+
+import { CharacterSheet, CharacterSheetDocument } from './character-sheet.model';
+import {
+    CreateCharacterSheetInput,
+} from './dto';
 
 @Injectable()
 export class CharacterSheetService {
-    constructor(@InjectModel('CharacterSheet') private characterSheetModel: Model<CharacterSheet>) {}
+    constructor(
+        @InjectModel(CharacterSheet.name) private characterSheetModel: Model<CharacterSheetDocument>,
+    ) {}
 
-    async create(createCharacterSheetDto: CharacterSheetType): Promise<CharacterSheetType> {
-        const createdCharacterSheet = new this.characterSheetModel(createCharacterSheetDto);
-        return await createdCharacterSheet.save();
-    }
-
-    async findAll(): Promise<CharacterSheetType[]> {
-        return await this.characterSheetModel.find().exec();
+    getById(_id: Types.ObjectId) {
+        return this.characterSheetModel.findById(_id).exec();
     }
 
-    async findOne(id: string): Promise<CharacterSheetType> {
-        return await this.characterSheetModel.findOne({ _id: id });
+    create(payload: CreateCharacterSheetInput) {
+        const createdCharacterSheet = new this.characterSheetModel(payload);
+        return createdCharacterSheet.save();
     }
-
-    async delete(id: string): Promise<CharacterSheetType> {
-        return await this.characterSheetModel.findByIdAndRemove(id);
-    }
-    
-    async update(id: string, characterSheet: CharacterSheetType): Promise<CharacterSheetType> {
-        return await this.characterSheetModel.findByIdAndUpdate(id, characterSheet, { new: true });
-    }
-};
+}

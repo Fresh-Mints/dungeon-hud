@@ -1,38 +1,22 @@
-import { Query, Args, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Types } from 'mongoose'
+import { CharacterSheet } from './character-sheet.model';
 import { CharacterSheetService } from './character-sheet.service';
-import { CharacterSheetType } from './dto/create-character-sheet.dto';
+import {
+    CreateCharacterSheetInput
+} from './dto';
 
-@Resolver()
+@Resolver(() => CharacterSheet)
 export class CharacterSheetResolver {
-    constructor(private readonly characterSheetService: CharacterSheetService) {}
+    constructor(private characterSheetService: CharacterSheetService) {}
 
-    @Query(() => [CharacterSheetType])
-    async characterSheets(): Promise<CharacterSheetType[]> {
-        return this.characterSheetService.findAll();
+    @Query(() => CharacterSheet)
+    async characterSheet(@Args('_id', { type: () => String }) _id: Types.ObjectId) {
+        return this.characterSheetService.getById(_id);
     }
 
-    @Mutation(() => CharacterSheetType)
-    async createCharacterSheet(@Args('input') input: CharacterSheetType): Promise<CharacterSheetType> {
-        return this.characterSheetService.create(input);
-    }
-    
-    @Mutation(() => CharacterSheetType)
-    async updateCharacterSheet(
-        @Args('id') id: string,
-        @Args('input') input: CharacterSheetType,
-    ): Promise<CharacterSheetType> {
-        return this.characterSheetService.update(id, input);
-    }
-
-    @Mutation(() => CharacterSheetType)
-    async deleteCharacterSheet(
-        @Args('id') id: string
-    ): Promise<CharacterSheetType> {
-        return this.characterSheetService.delete(id);
-    }
-
-    @Query(() => String)
-    async hello() {
-        return 'hello';
+    @Mutation(() => CharacterSheet)
+    async createCharacterSheet(@Args('payload') payload: CreateCharacterSheetInput) {
+        return this.characterSheetService.create(payload);
     }
 }
