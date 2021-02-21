@@ -1,7 +1,6 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import { Schema, Document, model } from 'mongoose';
 import { composeMongoose } from 'graphql-compose-mongoose';
 import { schemaComposer } from 'graphql-compose';
-import { GraphQLSchema } from 'graphql';
 
 export interface IAbilityScores extends Document {
     readonly strength: number;
@@ -19,7 +18,7 @@ export interface IFeature extends Document {
 }
 
 // STEP 1: DEFINE MONGOOSE SCHEMA AND MODEL
-const AbilityScoresSchema = new mongoose.Schema({
+export const AbilityScoresSchema = new Schema({
     strength: { type: Number, required: true },
     dexterity: { type: Number, required: true },
     constitution: { type: Number, required: true },
@@ -27,11 +26,11 @@ const AbilityScoresSchema = new mongoose.Schema({
     wisdom: { type: Number, required: true },
     charisma: { type: Number, required: true },
 });
-const AbilityScores = mongoose.model('AbilityScores', AbilityScoresSchema);
+export const AbilityScoresModel = model('AbilityScores', AbilityScoresSchema);
 
 // STEP 2: CONVERT MONGOOSE MODEL TO GraphQL PIECES
 const customizationOptions = {};
-const AbilityScoreTC = composeMongoose(AbilityScores, customizationOptions);
+const AbilityScoreTC = composeMongoose(AbilityScoresModel, customizationOptions);
 
 // STEP 3: Add needed CRUD User operations to the GraphQL Schema
 schemaComposer.Query.addFields({

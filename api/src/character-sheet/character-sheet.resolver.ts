@@ -1,7 +1,6 @@
 import { Query, Args, Mutation, Resolver } from '@nestjs/graphql';
 import { CharacterSheetService } from './character-sheet.service';
 import { CharacterSheetType } from './dto/create-character-sheet.dto';
-import { CharacterSheetInput } from './input-character-sheet.input';
 
 @Resolver()
 export class CharacterSheetResolver {
@@ -13,14 +12,14 @@ export class CharacterSheetResolver {
     }
 
     @Mutation(() => CharacterSheetType)
-    async createCharacterSheet(@Args('input') input: CharacterSheetInput): Promise<CharacterSheetInput> {
+    async createCharacterSheet(@Args('input') input: CharacterSheetType): Promise<CharacterSheetType> {
         return this.characterSheetService.create(input);
     }
     
     @Mutation(() => CharacterSheetType)
     async updateCharacterSheet(
         @Args('id') id: string,
-        @Args('input') input: CharacterSheetInput,
+        @Args('input') input: CharacterSheetType,
     ): Promise<CharacterSheetType> {
         return this.characterSheetService.update(id, input);
     }
@@ -28,7 +27,7 @@ export class CharacterSheetResolver {
     @Mutation(() => CharacterSheetType)
     async deleteCharacterSheet(
         @Args('id') id: string
-    ): Promise<CharacterSheetInput> {
+    ): Promise<CharacterSheetType> {
         return this.characterSheetService.delete(id);
     }
 

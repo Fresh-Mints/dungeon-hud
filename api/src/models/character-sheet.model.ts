@@ -1,8 +1,7 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import { Schema, Document, model } from 'mongoose';
 import { composeMongoose } from 'graphql-compose-mongoose';
 import { schemaComposer } from 'graphql-compose';
-import { GraphQLSchema } from 'graphql';
-import abilityScoresSchema, { IAbilityScores } from './ability-scores.model';
+import { IAbilityScores } from './ability-scores.model';
 
 export interface ICharacterSheet extends Document {
     readonly name: string;
@@ -11,20 +10,20 @@ export interface ICharacterSheet extends Document {
 };
 
 // STEP 1: DEFINE MONGOOSE SCHEMA AND MODEL
-const CharacterSheetSchema = new mongoose.Schema({
+export const CharacterSheetSchema = new Schema({
     name: { type: String, required: true },
-    abilityScores: {
-        type: abilityScoresSchema,
+    as: {
+        type: [],
         default: [],
         alias: 'abilityScores',
     },
     description: { type: String, required: false },
-});
-const CharacterSheet = mongoose.model('CharacterSheet', CharacterSheetSchema);
+}, {autoIndex: true});
+export const CharacterSheetModel = model('CharacterSheet', CharacterSheetSchema);
 
 // STEP 2: CONVERT MONGOOSE MODEL TO GraphQL PIECES
 const customizationOptions = {};
-const CharacterSheetTC = composeMongoose(CharacterSheet, customizationOptions);
+const CharacterSheetTC = composeMongoose(CharacterSheetModel, customizationOptions);
 
 // STEP 3: Add needed CRUD User operations to the GraphQL Schema
 schemaComposer.Query.addFields({
@@ -46,4 +45,5 @@ schemaComposer.Mutation.addFields({
 });
 
 const characterSheetSchema = schemaComposer.buildSchema();
+
 export default characterSheetSchema;
