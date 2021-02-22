@@ -21,7 +21,6 @@ import { join } from 'path';
       playground: true,
     }),
     CharacterSheetModule,
-    AbilityScoreModule,
   ],
   controllers: [AppController],
   providers: [AppService],

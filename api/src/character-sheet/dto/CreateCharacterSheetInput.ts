@@ -6,6 +6,9 @@ export class CreateCharacterSheetInput {
     @Field(() => String)
     name: string;
 
+    @Field(() => String)
+    user: string;
+
     @Field(() => [String])
     abilityScores: AbilityScores;
 

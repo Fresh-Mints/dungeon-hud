@@ -17,8 +17,14 @@ export class CharacterSheetService {
         return this.characterSheetModel.findById(_id).exec();
     }
 
-    create(payload: CreateCharacterSheetInput) {
-        const createdCharacterSheet = new this.characterSheetModel(payload);
+    getManyByUser(user: string) {
+        return this.characterSheetModel.find({ 
+            user: user 
+        }).exec();
+    }
+
+    create(createCharacterSheetInput: CreateCharacterSheetInput) {
+        const createdCharacterSheet = new this.characterSheetModel(createCharacterSheetInput);
         return createdCharacterSheet.save();
     }
 }

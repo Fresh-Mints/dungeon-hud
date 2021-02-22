@@ -11,12 +11,17 @@ export class CharacterSheet {
 
     @Field(() => String)
     @Prop()
+    user: string;
+
+    @Field(() => String)
+    @Prop()
     name: string;
 
     @Field(() => [String])
     @Prop({ type: Types.ObjectId, ref: AbilityScores.name })
     abilityScores: Types.ObjectId;
 
+    @Field(() => String)
     @Prop()
     description: string;
 }

@@ -15,8 +15,13 @@ export class CharacterSheetResolver {
         return this.characterSheetService.getById(_id);
     }
 
+    @Query(() => CharacterSheet)
+    async findCharacterSheetsByUser(@Args('_user', { type: () => String }) user: string) {
+        return this.characterSheetService.getManyByUser(user);
+    }
+
     @Mutation(() => CharacterSheet)
-    async createCharacterSheet(@Args('payload') payload: CreateCharacterSheetInput) {
-        return this.characterSheetService.create(payload);
+    async createCharacterSheet(@Args('createCharacterSheetInput') createCharacterSheetInput: CreateCharacterSheetInput) {
+        return this.characterSheetService.create(createCharacterSheetInput);
     }
 }

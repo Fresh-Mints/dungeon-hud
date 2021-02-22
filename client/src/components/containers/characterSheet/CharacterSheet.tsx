@@ -2,8 +2,7 @@ import { Button, FormControl, InputLabel, List, ListItemText, makeStyles, MenuIt
 import React, { ChangeEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './CharacterSheet.module.scss';
-import { addCharacterSheet, removeCharacterSheet } from '../../../store/actions/characterSheets';
-import { emptyCharacter, ICharacterSheet } from '../../../models/characterSheet.model';
+import { createCharacterSheet, clearCharacterSheet, ICharacterSheet, emptyCharacter } from '../../../store/characterSheet/characterSheetSlice';
 import { IRootState } from '../../../models/rootState';
 import { IAbilities } from '../../../models/abilityScores.model';
 
@@ -23,6 +22,7 @@ const CharacterSheet = () => {
 
     const characterSheets = useSelector((state: IRootState) => state.characterSheetState.characterSheets);
     const dispatch = useDispatch();
+    const thunkDispatch = () => dispatch(createCharacterSheet(newCharacter));
 
     const nameChangedHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setNewCharacter({...newCharacter, name: e.target.value});
@@ -46,13 +46,12 @@ const CharacterSheet = () => {
         if (characterSheets.length > 0) {
             id = characterSheets[characterSheets.length-1].id + 1;
         }
-    
-        dispatch(addCharacterSheet({...newCharacter, id: id}));
+        dispatch(createCharacterSheet({...newCharacter}));
         setNewCharacter(emptyCharacter);
     }
 
     const clickNameHandler = (id: string) => {
-        dispatch(removeCharacterSheet(id));
+        dispatch(clearCharacterSheet);
     }
 
     const characterList = characterSheets.map((c, index) => (
