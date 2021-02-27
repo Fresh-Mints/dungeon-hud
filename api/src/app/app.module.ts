@@ -3,9 +3,10 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AbilityScoreModule } from './ability-score/ability-score.module';
-import { CharacterSheetModule } from './character-sheet/character-sheet.module';
+import { AbilityScoreModule } from '../ability-score/ability-score.module';
+import { CharacterSheetModule } from '../character-sheet/character-sheet.module';
 import { join } from 'path';
+import { LoggingPlugin } from './app.plugin';
 
 @Module({
   imports: [
@@ -23,6 +24,6 @@ import { join } from 'path';
     CharacterSheetModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, LoggingPlugin],
 })
 export class AppModule {}

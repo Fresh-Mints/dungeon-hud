@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { CharacterSheetService } from './character-sheet.service';
+import { CharacterSheetService } from '../character-sheet.service';
 
 describe('CharacterSheetService', () => {
   let service: CharacterSheetService;
