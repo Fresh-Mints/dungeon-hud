@@ -6,6 +6,7 @@ import { IRootState } from '../../../models/rootState';
 import { IAbilities } from '../../../models/abilityScores.model';
 import { useQuery, useMutation, useReactiveVar }from '@apollo/client';
 import { characterVar, createCharacterSheet, getCharacterSheet } from '../../../store/CharacterSheet';
+import { ICharacterSheet } from '../../../store/CharacterSheet';
 
 const useStyles = makeStyles({
     root: {
@@ -16,55 +17,17 @@ const useStyles = makeStyles({
     },
 });
 
-const CharacterSheet = () => {
-    const newCharacter = useReactiveVar(characterVar);
-    const [ userName, setUserName ] = useState('');
+interface IProps {
+    character: ICharacterSheet
+    username: string
+    createCharacterSheet: () => void
+    updateCharacterSheet: () => void
+}
 
-
-    const { loading, error, data } = useMutation(
-        createCharacterSheet.CREATE_CHARACTERSHEET,
-        {variables: {
-            
-        }}
-    )
-
+const CharacterSheetView = (props: IProps) => {
     const classes = useStyles();
 
-    const characterSheets = useSelector((state: IRootState) => state.characterSheetState.characterSheets);
-    const dispatch = useDispatch();
-    const thunkDispatch = () => dispatch(createCharacterSheet(newCharacter));
-
-    const nameChangedHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setNewCharacter({...newCharacter, name: e.target.value});
-    }
-
-    const descriptionChangedHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setNewCharacter({...newCharacter, description: e.target.value});
-    }
-
-    const scoreChangedHandler = (value: number, ability: IAbilities) => {
-        const abilityScoresCopy = {...newCharacter.abilityScores};
-        abilityScoresCopy[ability] = value;
-        setNewCharacter({...newCharacter, abilityScores: abilityScoresCopy});
-    }
-
-    const clickButtonHandler = () => {
-        if (!newCharacter.name) {
-            return;
-        }
-        let id = '0';
-        if (characterSheets.length > 0) {
-            id = characterSheets[characterSheets.length-1].id + 1;
-        }
-        dispatch(createCharacterSheet({...newCharacter}));
-        setNewCharacter(emptyCharacter);
-    }
-
-    const clickNameHandler = (id: string) => {
-        dispatch(clearCharacterSheet);
-    }
-
-    const characterList = characterSheets.map((c, index) => (
+    const characterList = character.abilityScore.map((c, index) => (
         <div key={index}>
             <ListItemText primary={c.name} onClick={() => clickNameHandler(c.id)} />
             <ListItemText primary={c.description} />
@@ -189,4 +152,4 @@ const CharacterSheet = () => {
     );
 };
 
-export default CharacterSheet;
+export default CharacterSheetView;
