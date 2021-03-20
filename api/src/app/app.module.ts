@@ -24,6 +24,6 @@ import { LoggingPlugin } from './app.plugin';
     CharacterSheetModule,
   ],
   controllers: [AppController],
-  providers: [AppService, LoggingPlugin],
+  providers: [AppService],
 })
 export class AppModule {}

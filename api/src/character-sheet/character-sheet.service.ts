@@ -5,6 +5,7 @@ import { Model, Types } from 'mongoose';
 import { CharacterSheet, CharacterSheetDocument } from './character-sheet.model';
 import {
     CreateCharacterSheetInput,
+    UpdateCharacterSheetInput,
 } from './dto';
 
 @Injectable()
@@ -26,5 +27,9 @@ export class CharacterSheetService {
     create(createCharacterSheetInput: CreateCharacterSheetInput) {
         const createdCharacterSheet = new this.characterSheetModel(createCharacterSheetInput);
         return createdCharacterSheet.save();
+    }
+
+    update(updateInp:UpdateCharacterSheetInput) {
+        return this.characterSheetModel.findOneAndUpdate(updateInp._id, updateInp).exec();
     }
 }

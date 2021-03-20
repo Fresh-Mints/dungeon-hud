@@ -3,7 +3,7 @@ import { Types } from 'mongoose'
 import { CharacterSheet } from './character-sheet.model';
 import { CharacterSheetService } from './character-sheet.service';
 import {
-    CreateCharacterSheetInput
+    CreateCharacterSheetInput, UpdateCharacterSheetInput
 } from './dto';
 
 @Resolver(() => CharacterSheet)
@@ -23,5 +23,10 @@ export class CharacterSheetResolver {
     @Mutation(() => CharacterSheet)
     async createCharacterSheet(@Args('createCharacterSheetInput') createCharacterSheetInput: CreateCharacterSheetInput) {
         return this.characterSheetService.create(createCharacterSheetInput);
+    }
+
+    @Mutation(() => CharacterSheet)
+    async updateCharacterSheet(@Args('updateSheetInp') updateCharacterSheetInput: UpdateCharacterSheetInput) {
+        return this.characterSheetService.update(updateCharacterSheetInput);
     }
 }
