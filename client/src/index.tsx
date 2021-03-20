@@ -1,31 +1,47 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import characterSheetsReducer from './store/reducers/characterSheets';
-import thunk from 'redux-thunk';
+
 import { BrowserRouter } from 'react-router-dom';
 
-const composeEnhancers = process.env.NODE_ENV === 'development' ?
-  (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
+import { cache } from './store/cache';
+import { ApolloClient, ApolloProvider, createHttpLink, NormalizedCacheObject } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+import { loader } from 'graphql.macro';
 
-const rootReducer = combineReducers({
-  characterSheetState: characterSheetsReducer,
+const schema = loader('../../api/src/schema.gql')
+
+// Initialize http Link
+const httpLink = createHttpLink({
+  uri: 'http://127.0.0.1:4000/graphql',
 });
 
-const store = createStore(rootReducer, composeEnhancers(
-  applyMiddleware(thunk)
-));
+// Initialize auth link - think we can use sentry here?
+const authLink = setContext((_, { headers}) => {
+    const token = localStorage.getItem('token');
+
+    return {
+        headers: {
+            ...headers,
+            authorization: token ? `Bearer ${token}` : '',
+        },
+    };
+});
+
+const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: cache,
+  typeDefs: schema,
+})
   
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
+    <ApolloProvider client={client}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </Provider>
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

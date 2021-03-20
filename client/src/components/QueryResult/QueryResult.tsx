@@ -1,12 +1,15 @@
 import React from 'react';
 import { CircularProgress } from '@material-ui/core';
-import { QueryResult } from '@apollo/client';
+import { ApolloError } from '@apollo/client';
 
-interface IProps extends QueryResult {
-    children: any
+interface IProps {
+    loading: boolean;
+    error?: ApolloError;
+    data?: any;
+    children: any;
 }
 
-const QueryRes = ({loading, error, data, children}: IProps ) => {
+const QueryResult = ({ loading, error, data, children }: IProps ) => {
     if (error) { return <p>ERROR: {error.message}</p>};
 
     if (loading) {
@@ -22,4 +25,4 @@ const QueryRes = ({loading, error, data, children}: IProps ) => {
     }
 }
 
-export default QueryRes;
+export default QueryResult;

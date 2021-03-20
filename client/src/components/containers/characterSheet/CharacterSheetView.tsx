@@ -6,7 +6,7 @@ import { IRootState } from '../../../models/rootState';
 import { IAbilities } from '../../../models/abilityScores.model';
 import { useQuery, useMutation, useReactiveVar }from '@apollo/client';
 import { characterVar, createCharacterSheet, getCharacterSheet } from '../../../store/CharacterSheet';
-import { ICharacterSheet } from '../../../store/CharacterSheet';
+import { CharacterSheetModel } from '../../../store/CharacterSheet';
 
 const useStyles = makeStyles({
     root: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles({
 });
 
 interface IProps {
-    character: ICharacterSheet
+    character: CharacterSheetModel.ICharacterSheet
     username: string
     createCharacterSheet: () => void
     updateCharacterSheet: () => void
@@ -27,7 +27,7 @@ interface IProps {
 const CharacterSheetView = (props: IProps) => {
     const classes = useStyles();
 
-    const characterList = character.abilityScore.map((c, index) => (
+    const characterList = props.character.abilityScores.map((c, index) => (
         <div key={index}>
             <ListItemText primary={c.name} onClick={() => clickNameHandler(c.id)} />
             <ListItemText primary={c.description} />
