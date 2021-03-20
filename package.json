@@ -1,7 +1,14 @@
 {
     "scripts": {
-        "apiScript": "cd api && npm run start:dev",
-        "clientScript": "cd client && npm start",
-        "start": "concurrently \"npm run apiScript\" \"npm run clientScript\" "
-    }
+        "apiStart": "cd api && npm run start:dev",
+        "apiInstall": "cd api && npm install",
+        "apiUpdate": "cd api && npm update",
+        "clientStart": "cd client && npm start",
+        "clientInstall": "cd client && npm install",
+        "clientUpdate": "cd client && npm install",
+        "start": "concurrently \"npm run apiStart\" \"npm run clientStart\" ",
+        "install": "concurrently \"npm run apiInstall\" \"npm run clientInstall\" ",
+        "update": "concurrently \"npm run apiUpdate\" \"npm run clientUpdate\" "
+    },
+    "dependencies": {}
 }
