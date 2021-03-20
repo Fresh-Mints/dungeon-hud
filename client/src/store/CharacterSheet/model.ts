@@ -19,7 +19,7 @@ export interface ICharacterSheet {
     id: string;
     name: string;
     abilityScores: IAbilityScores;
-    description?: string;
+    description: string;
 }
 
 export interface ICharacterSheetState {
