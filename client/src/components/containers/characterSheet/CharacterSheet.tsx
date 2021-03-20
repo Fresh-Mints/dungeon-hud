@@ -21,10 +21,11 @@ const CharacterSheet = () => {
 
     const classes = useStyles();
 
-    // rab Redux state and actions
+    // Grab Redux state and actions
     const characterSheets = useSelector((state: IRootState) => state.characterSheetState.characterSheets);
     const dispatch = useDispatch();
 
+    // Takes the change event, 
     const nameChangedHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setNewCharacter({...newCharacter, name: e.target.value});
     }

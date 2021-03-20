@@ -3,8 +3,5 @@
         "apiScript": "cd api && npm run start:dev",
         "clientScript": "cd client && npm start",
         "start": "concurrently \"npm run apiScript\" \"npm run clientScript\" "
-    },
-    "devDependencies": {
-        "concurrently": "^5.3.0"
     }
 }
