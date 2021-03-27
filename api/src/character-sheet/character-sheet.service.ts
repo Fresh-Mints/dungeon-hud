@@ -19,9 +19,7 @@ export class CharacterSheetService {
     }
 
     getManyByUser(user: string) {
-        return this.characterSheetModel.find({ 
-            user: user 
-        }).exec();
+        return this.characterSheetModel.find({user: user }).exec();
     }
 
     create(createCharacterSheetInput: CreateCharacterSheetInput) {

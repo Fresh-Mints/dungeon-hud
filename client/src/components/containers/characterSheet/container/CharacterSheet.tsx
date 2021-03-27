@@ -5,12 +5,12 @@ import { characterVar, getCharacterSheet, createCharacterSheet, updateCharacterS
 import QueryResult from '../../../QueryResult/QueryResult';
 
 export const CharacterSheet = () => {
-    const [username, UpdateUserName] = useState('');
+    const [username, UpdateUserName] = useState('matt');
     const characterSheetQuery: { loading: any, error?: any, data?: getCharacterSheet.Data} = useQuery(
         getCharacterSheet.GET_CHARACTERSHEETS,
         {variables: {
             user: username
-        }}
+        } as getCharacterSheet.Variables}
     )
     const [createSheet, { data }] = useMutation(createCharacterSheet.CREATE_CHARACTERSHEET);
     const [updateSheet] = useMutation(updateCharacterSheet.UPDATE_CHARACTERSHEET);

@@ -3,13 +3,12 @@ import { ICharacterSheet, IAbilityScores } from './model';
 
 // Schema
 export const GET_CHARACTERSHEETS = gql`
-    query GetCharacterSheets(
+    query findCharacterSheetsByUser(
         $user: String!
     ) {
-        getCharacterSheets(
+        findCharacterSheetsByUser(
             user: $user
         ) {
-            _id
             name
             description
             abilityScores

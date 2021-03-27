@@ -15,9 +15,11 @@ export class CharacterSheetResolver {
         return this.characterSheetService.getById(_id);
     }
 
-    @Query(() => CharacterSheet)
-    async findCharacterSheetsByUser(@Args('_user', { type: () => String }) user: string) {
-        return this.characterSheetService.getManyByUser(user);
+    @Query(() => [CharacterSheet])
+    async findCharacterSheetsByUser(@Args('user', { type: () => String }) user: string) {
+        const foundSheets = await this.characterSheetService.getManyByUser(user);
+        
+        return foundSheets
     }
 
     @Mutation(() => CharacterSheet)
