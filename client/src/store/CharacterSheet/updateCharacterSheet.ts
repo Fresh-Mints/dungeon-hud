@@ -3,7 +3,7 @@ import { IAbilityScores } from './model';
 import { QueryResult as IQueryResult } from '@apollo/client';
 
 export const UPDATE_CHARACTERSHEET = gql`
-    mutate updateCharacterSheet(
+    mutation updateCharacterSheet(
         $name: String,
         $description: String,
         $abilityScores: AbilityScores,
@@ -24,9 +24,10 @@ export const UPDATE_CHARACTERSHEET = gql`
 
 // input
 export interface Variables {
+    _id: string;
     name: string;
     description: string;
-    abilityScore: IAbilityScores;
+    abilityScores: IAbilityScores;
     user: string;
 }
 

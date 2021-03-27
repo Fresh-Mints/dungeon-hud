@@ -3,7 +3,7 @@ import { IAbilityScores } from './model';
 import { QueryResult as IQueryResult } from '@apollo/client';
 
 export const CREATE_CHARACTERSHEET = gql`
-    mutate createCharacterSheet(
+    mutation createCharacterSheet(
         $name: String,
         $description: String,
         $abilityScores: AbilityScores,

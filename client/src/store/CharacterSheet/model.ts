@@ -16,7 +16,7 @@ export const emptyAbilityScores: IAbilityScores = {
 }
 
 export interface ICharacterSheet {
-    id: string;
+    _id: string;
     name: string;
     abilityScores: IAbilityScores;
     description: string;
@@ -27,7 +27,7 @@ export interface ICharacterSheetState {
 }
 
 export const emptyCharacter = {
-    id: '',
+    _id: '',
     name: '',
     abilityScores: emptyAbilityScores,
     description: '',

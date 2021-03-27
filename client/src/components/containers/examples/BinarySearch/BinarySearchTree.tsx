@@ -1,8 +1,19 @@
 import React, { ChangeEvent, useReducer, useState } from 'react';
 import { Button, List, ListItemText, TextField } from '@material-ui/core';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import { INode, INodeState } from '../../../../models/nodes.model';
 import styles from './BinarySearchTree.module.css';
+
+
+interface INode {
+    id: number;
+    value: number;
+    color: string;
+    data?: INode[];
+}
+
+interface INodeState {
+    nodes?: INode[];
+}
 
 function getRandomInt(min: number, max: number) {
     min = Math.ceil(min);

@@ -97,12 +97,12 @@ const CharacterSheetView = (props: IProps) => {
                 {
                     variables: 
                     {
-                        id: props.character.id,
+                        _id: character._id,
                         name: character.name,
                         abilityScores: character.abilityScores,
                         description: character.description,
                         user: props.username,
-                    }
+                    } as updateCharacterSheet.Variables
                 }
             );
         }
