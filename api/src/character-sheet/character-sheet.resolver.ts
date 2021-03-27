@@ -18,7 +18,6 @@ export class CharacterSheetResolver {
     @Query(() => [CharacterSheet])
     async findCharacterSheetsByUser(@Args('user', { type: () => String }) user: string) {
         const foundSheets = await this.characterSheetService.getManyByUser(user);
-        
         return foundSheets
     }
 
