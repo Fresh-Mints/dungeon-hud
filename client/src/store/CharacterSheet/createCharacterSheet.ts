@@ -26,7 +26,7 @@ export const CREATE_CHARACTERSHEET = gql`
 export interface Variables {
     name: string;
     description: string;
-    abilityScore: IAbilityScores;
+    abilityScores: IAbilityScores;
     user: string;
 }
 

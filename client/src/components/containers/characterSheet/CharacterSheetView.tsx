@@ -1,7 +1,7 @@
-import { FormControl, InputLabel, makeStyles, MenuItem, Select, TextField } from '@material-ui/core';
+import { Button, FormControl, InputLabel, makeStyles, MenuItem, Select, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
 import styles from './CharacterSheet.module.scss';
-import { CharacterSheetModel, updateCharacterSheet } from '../../../store/CharacterSheet';
+import { CharacterSheetModel, createCharacterSheet, updateCharacterSheet } from '../../../store/CharacterSheet';
 import { emptyCharacter } from '../../../store/CharacterSheet/model';
 
 const useStyles = makeStyles({
@@ -17,11 +17,15 @@ interface UpdateInput {
     variables: updateCharacterSheet.Variables
 }
 
+interface CreateInput {
+    variables: createCharacterSheet.Variables
+}
+
 interface IProps {
     characterId?: string
     character?: CharacterSheetModel.ICharacterSheet
     username: string
-    createCharacterSheet: () => void
+    createCharacterSheet: (createInput: CreateInput) => void
     updateCharacterSheet: (updateInput: UpdateInput) => void
 }
 
@@ -53,49 +57,50 @@ const CharacterSheetView = (props: IProps) => {
     }
 
     const changeHandler = (value: string, field: string) => {
-        switch (field) {
-            case 'name': {
-                setCharacter({...character, name: value})
-                break;
-            }
-            case 'description': {
-                setCharacter({...character, description: value})
-                break;
-            }
-            case 'strength': {
-                setCharacter({...character, abilityScores: {...character.abilityScores, strength: +value}});
-                break;
-            }
-            case 'dexterity': {
-                setCharacter({...character, abilityScores: {...character.abilityScores, dexterity: +value}});
-                break;
-            }
-            case 'constitution': {
-                setCharacter({...character, abilityScores: {...character.abilityScores, constitution: +value}});
-                break;
-            }
-            case 'intelligence': {
-                setCharacter({...character, abilityScores: {...character.abilityScores, intelligence: +value}});
-                break;
-            }
-            case 'wisdom': {
-                setCharacter({...character, abilityScores: {...character.abilityScores, wisdom: +value}});
-                break;
-            }
-            case 'charisma': {
-                setCharacter({...character, abilityScores: {...character.abilityScores, charisma: +value}});
-                break;
-            }
-            default: {
-                break;
+        if (character.abilityScores) {
+            switch (field) {
+                case 'name': {
+                    setCharacter({...character, name: value})
+                    break;
+                }
+                case 'description': {
+                    setCharacter({...character, description: value})
+                    break;
+                }
+                case 'strength': {
+                    setCharacter({...character, abilityScores: {...character.abilityScores, strength: +value}});
+                    break;
+                }
+                case 'dexterity': {
+                    setCharacter({...character, abilityScores: {...character.abilityScores, dexterity: +value}});
+                    break;
+                }
+                case 'constitution': {
+                    setCharacter({...character, abilityScores: {...character.abilityScores, constitution: +value}});
+                    break;
+                }
+                case 'intelligence': {
+                    setCharacter({...character, abilityScores: {...character.abilityScores, intelligence: +value}});
+                    break;
+                }
+                case 'wisdom': {
+                    setCharacter({...character, abilityScores: {...character.abilityScores, wisdom: +value}});
+                    break;
+                }
+                case 'charisma': {
+                    setCharacter({...character, abilityScores: {...character.abilityScores, charisma: +value}});
+                    break;
+                }
+                default: {
+                    break;
+                }
             }
         }
-        if (props.character) {
+        if (props.character && props.characterId) {
             props.updateCharacterSheet(
                 {
                     variables: 
                     {
-                        _id: character._id,
                         name: character.name,
                         abilityScores: character.abilityScores,
                         description: character.description,
@@ -106,8 +111,24 @@ const CharacterSheetView = (props: IProps) => {
         }
     }
 
+    const submitHandler = (event: React.FormEvent) => {
+        event.preventDefault();
+        props.createCharacterSheet(
+            {
+                variables: 
+                {
+                    _id: character._id,
+                    name: character.name,
+                    abilityScores: character.abilityScores,
+                    description: character.description,
+                    user: props.username,
+                } as updateCharacterSheet.Variables
+            }
+        );
+    };
+
     return (
-        <div className={styles.characterSheet}>
+        <form className={styles.characterSheet} onSubmit={submitHandler}>
             <TextField
                 id='standard-basic'
                 onChange={(event) => changeHandler(event.target.value as string, 'name')}
@@ -132,7 +153,7 @@ const CharacterSheetView = (props: IProps) => {
                         className={classes.scores}
                         labelId='demo-simple-select-label'
                         id='demo-simple-select'
-                        value={character.abilityScores.strength}
+                        value={character.abilityScores?.strength}
                         name='strength'
                         onChange={(event) => changeHandler(event.target.value as string, 'strength')}
                     >
@@ -145,7 +166,7 @@ const CharacterSheetView = (props: IProps) => {
                         className={classes.scores}
                         labelId='demo-simple-select-label'
                         id='demo-simple-select'
-                        value={character.abilityScores.dexterity}
+                        value={character.abilityScores?.dexterity}
                         name='dexterity'
                         onChange={(event) => changeHandler(event.target.value as string, 'dexterity')}
                     >
@@ -158,7 +179,7 @@ const CharacterSheetView = (props: IProps) => {
                         className={classes.scores}
                         labelId='demo-simple-select-label'
                         id='demo-simple-select'
-                        value={character.abilityScores.constitution}
+                        value={character.abilityScores?.constitution}
                         name='constitution'
                         onChange={(event) => changeHandler(event.target.value as string, 'constitution')}
                     >
@@ -171,7 +192,7 @@ const CharacterSheetView = (props: IProps) => {
                         className={classes.scores}
                         labelId='demo-simple-select-label'
                         id='demo-simple-select'
-                        value={character.abilityScores.intelligence}
+                        value={character.abilityScores?.intelligence}
                         name='intelligence'
                         onChange={(event) => changeHandler(event.target.value as string, 'intelligence')}
                     >
@@ -184,7 +205,7 @@ const CharacterSheetView = (props: IProps) => {
                         className={classes.scores}
                         labelId='demo-simple-select-label'
                         id='demo-simple-select'
-                        value={character.abilityScores.wisdom}
+                        value={character.abilityScores?.wisdom}
                         name='wisdom'
                         onChange={(event) => changeHandler(event.target.value as string, 'wisdom')}
                     >
@@ -197,7 +218,7 @@ const CharacterSheetView = (props: IProps) => {
                         className={classes.scores}
                         labelId='demo-simple-select-label'
                         id='demo-simple-select'
-                        value={character.abilityScores.charisma}
+                        value={character.abilityScores?.charisma}
                         name='charisma'
                         onChange={(event) => changeHandler(event.target.value as string, 'charisma')}
                     >
@@ -205,9 +226,14 @@ const CharacterSheetView = (props: IProps) => {
                     </Select>
                 </FormControl>
             </div>
-            {/* <Button variant='contained' color='primary' onClick={submitHandler}>Accept</Button> */}
-            {/* {characterScores} */}
-        </div>
+            {!props.characterId ? <Button
+                variant='contained'
+                color='primary'
+                type='submit'
+            >
+                Create
+            </Button> : null}
+        </form>
     );
 };
 
