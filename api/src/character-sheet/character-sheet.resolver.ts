@@ -11,13 +11,16 @@ export class CharacterSheetResolver {
     constructor(private characterSheetService: CharacterSheetService) {}
 
     @Query(() => CharacterSheet)
-    async characterSheet(@Args('_id', { type: () => String }) _id: Types.ObjectId) {
-        return this.characterSheetService.getById(_id);
+    async findOneSheetById(@Args('_id', { type: () => String }) _id: Types.ObjectId) {
+        return this.characterSheetService.findOneSheetById(_id);
     }
 
     @Query(() => [CharacterSheet])
-    async findCharacterSheetsByUser(@Args('user', { type: () => String }) user: string) {
-        const foundSheets = await this.characterSheetService.getManyByUser(user);
+    async findManySheetsByUser(@Args('user', { type: () => String }) user: string) {
+        const foundSheets = await this.characterSheetService.findManySheetsByUser(user);
+        if (foundSheets == []) {
+            return new Error('No sheets found');
+        }
         return foundSheets
     }
 

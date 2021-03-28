@@ -14,11 +14,11 @@ export class CharacterSheetService {
         @InjectModel(CharacterSheet.name) private characterSheetModel: Model<CharacterSheetDocument>,
     ) {}
 
-    getById(_id: Types.ObjectId) {
+    findOneSheetById(_id: Types.ObjectId) {
         return this.characterSheetModel.findById(_id).exec();
     }
 
-    getManyByUser(user: string) {
+    findManySheetsByUser(user: string) {
         return this.characterSheetModel.find({user: user }).exec();
     }
 
