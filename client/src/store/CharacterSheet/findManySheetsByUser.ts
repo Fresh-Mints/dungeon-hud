@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client'
-import { ICharacterSheet, IAbilityScores } from './model';
+import { IAbilityScores } from './model';
 
 // Schema
 export const FIND_MANY_SHEETS_BY_USER = gql`
@@ -23,9 +23,9 @@ export interface Variables {
 }
 
 // output
-export interface Data {
+export interface Data extends Array<{
     _id: string;
     name: string;
     description: string;
     abilityScores: IAbilityScores;
-}
+}> { }
