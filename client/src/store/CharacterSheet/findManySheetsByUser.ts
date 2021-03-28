@@ -2,13 +2,14 @@ import { gql } from '@apollo/client'
 import { ICharacterSheet, IAbilityScores } from './model';
 
 // Schema
-export const GET_CHARACTERSHEETS = gql`
-    query findCharacterSheetsByUser(
+export const FIND_MANY_SHEETS_BY_USER = gql`
+    query findManySheetsByUser(
         $user: String!
     ) {
-        findCharacterSheetsByUser(
+        findManySheetsByUser(
             user: $user
         ) {
+            _id
             name
             description
             abilityScores

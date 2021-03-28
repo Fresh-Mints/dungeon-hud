@@ -1,5 +1,6 @@
 import { InMemoryCache } from '@apollo/client';
 import { characterVar } from './CharacterSheet';
+import { userVar } from './User';
 
 export const cache: InMemoryCache = new InMemoryCache({
     typePolicies: {
@@ -8,6 +9,11 @@ export const cache: InMemoryCache = new InMemoryCache({
                 characterSheet: {
                     read() {
                         return characterVar
+                    }
+                },
+                user: {
+                    read() {
+                        return userVar
                     }
                 }
             }

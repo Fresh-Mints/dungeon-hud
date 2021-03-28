@@ -1,18 +1,25 @@
-import React, { useState } from 'react';
-import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
+import React from 'react';
+import { useMutation, useQuery } from '@apollo/client';
 import CharacterSheetView from '../CharacterSheetView';
-import { characterVar, getCharacterSheet, createCharacterSheet, updateCharacterSheet } from '../../../../store/CharacterSheet';
 import QueryResult from '../../../QueryResult/QueryResult';
+import { 
+    characterVar,
+    findOneSheetById,
+    createCharacterSheet,
+    updateCharacterSheet,
+} from '../../../../store/CharacterSheet';
+import {
+    userVar
+} from '../../../../store/User';
 
 export const CharacterSheet = () => {
-    const [username, UpdateUserName] = useState('matt');
-    const characterSheetQuery: { loading: any, error?: any, data?: getCharacterSheet.Data} = useQuery(
-        getCharacterSheet.GET_CHARACTERSHEETS,
+    const characterSheetQuery: { loading: any, error?: any, data?: findOneSheetById.Data} = useQuery(
+        findOneSheetById.FIND_ONE_SHEET_BY_ID,
         {variables: {
-            user: username
-        } as getCharacterSheet.Variables}
+            _id: characterVar()._id
+        } as findOneSheetById.Variables}
     )
-    const [createSheet, { data }] = useMutation(createCharacterSheet.CREATE_CHARACTERSHEET);
+    const [createSheet] = useMutation(createCharacterSheet.CREATE_CHARACTERSHEET);
     const [updateSheet] = useMutation(updateCharacterSheet.UPDATE_CHARACTERSHEET);
 
     return (
@@ -22,8 +29,9 @@ export const CharacterSheet = () => {
             data={characterSheetQuery.data}
         >   
             <CharacterSheetView
-                character = {characterSheetQuery.data}
-                username = {username}
+                characterId = {characterVar()._id}
+                character = {characterSheetQuery.data}  
+                username = {userVar().name}
                 createCharacterSheet={createSheet}
                 updateCharacterSheet={updateSheet}
             />      

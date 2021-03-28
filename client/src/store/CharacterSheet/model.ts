@@ -16,17 +16,17 @@ export const emptyAbilityScores: IAbilityScores = {
 }
 
 export interface ICharacterSheet {
-    _id: string;
-    name: string;
-    abilityScores: IAbilityScores;
-    description: string;
+    _id?: string;
+    name?: string;
+    abilityScores?: IAbilityScores;
+    description?: string;
 }
 
 export interface ICharacterSheetState {
     characterSheets: ICharacterSheet[];
 }
 
-export const emptyCharacter = {
+export const emptyCharacter: ICharacterSheet = {
     _id: '',
     name: '',
     abilityScores: emptyAbilityScores,
