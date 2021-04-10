@@ -3,7 +3,7 @@ import styles from './App.module.css';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { Navigation } from './components/containers/Navigation/Navigation';
 
-import CharacterSheet from './components/containers/characterSheet/CharacterSheet';
+import {CharacterSheet} from './components/containers/characterSheet/container/CharacterSheet';
 
 import Examples from './components/containers/examples';
 

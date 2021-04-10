@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { CharacterSheetResolver } from './character-sheet.resolver';
+import { CharacterSheetResolver } from '../character-sheet.resolver';
 
 describe('CharacterSheetResolver', () => {
   let resolver: CharacterSheetResolver;

@@ -19,9 +19,18 @@ input CreateCharacterSheetInput {
 
 type Mutation {
   createCharacterSheet(createCharacterSheetInput: CreateCharacterSheetInput!): CharacterSheet!
+  updateCharacterSheet(updateSheetInp: UpdateCharacterSheetInput!): CharacterSheet!
 }
 
 type Query {
   characterSheet(_id: String!): CharacterSheet!
   findCharacterSheetsByUser(_user: String!): CharacterSheet!
+}
+
+input UpdateCharacterSheetInput {
+  _id: String!
+  abilityScores: [String!]
+  description: String
+  name: String
+  user: String
 }
