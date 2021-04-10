@@ -1,14 +1,10 @@
-import React, { useState } from 'react';
-import { useLazyQuery, useQuery } from '@apollo/client';
+import React from 'react';
 import QueryResult from '../../../QueryResult/QueryResult';
 import LoginView from '../LoginView';
-import {
-    userVar,
-    login,
-} from '../../../../store/User';
+import { useLogin } from '../hooks/useLogin';
 
 export const CharacterSelect = () => {
-    const [loginUser, { error, loading, data }] = useLazyQuery(login.LOGIN);
+    const { loginUser, loading, error, data } = useLogin();
 
     return (
         <QueryResult

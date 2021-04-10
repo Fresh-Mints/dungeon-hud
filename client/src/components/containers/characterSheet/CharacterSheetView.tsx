@@ -1,8 +1,8 @@
 import { Button, FormControl, InputLabel, makeStyles, MenuItem, Select, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
 import styles from './CharacterSheet.module.scss';
-import { CharacterSheetModel, createCharacterSheet, updateCharacterSheet } from '../../../store/CharacterSheet';
-import { emptyCharacter } from '../../../store/CharacterSheet/model';
+import { emptyCharacter, ICharacterSheet } from '../../../store/characterSheet/model';
+import { createCharacterSheet, updateCharacterSheet } from './hooks';
 
 const useStyles = makeStyles({
     root: {
@@ -23,7 +23,7 @@ interface CreateInput {
 
 interface IProps {
     characterId?: string
-    character?: CharacterSheetModel.ICharacterSheet
+    character?: ICharacterSheet
     username: string
     createCharacterSheet: (createInput: CreateInput) => void
     updateCharacterSheet: (updateInput: UpdateInput) => void

@@ -1,18 +1,11 @@
-import React, { useState } from 'react';
-import { useQuery } from '@apollo/client';
-import { characterVar, findManySheetsByUser } from '../../../../store/CharacterSheet';
+import React from 'react';
+import { characterVar } from '../../../../store/characterSheet/model';
 import QueryResult from '../../../QueryResult/QueryResult';
-import { userVar } from '../../../../store/User';
 import CharacterSelectView from '../CharacterSelectView';
+import { useFindManySheetsByUser } from '../hooks/useFindManySheetsByUser';
 
 export const CharacterSelect = () => {
-    const sheetsByUserQuery: { loading: any, error?: any, data?: findManySheetsByUser.Data} = useQuery(
-        findManySheetsByUser.FIND_MANY_SHEETS_BY_USER,
-        {variables: {
-            user: userVar().name
-        } as findManySheetsByUser.Variables}
-    )
-
+    const { loading, error, data } = useFindManySheetsByUser()
     const selectSheet = (_id?: string) => {
         if (_id) {
             let prevVar = characterVar()
@@ -23,12 +16,12 @@ export const CharacterSelect = () => {
 
     return (
         <QueryResult
-            loading={sheetsByUserQuery.loading}
-            error={sheetsByUserQuery.error}
-            data={sheetsByUserQuery.data}
+            loading={loading}
+            error={error}
+            data={data}
         >
             <CharacterSelectView
-                sheets = {sheetsByUserQuery.data}
+                sheets = {data}
                 onSelect = {selectSheet}
             />
         </QueryResult>

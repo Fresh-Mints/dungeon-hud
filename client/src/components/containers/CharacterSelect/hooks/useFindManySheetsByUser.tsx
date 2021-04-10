@@ -1,5 +1,7 @@
+import { useQuery } from '@apollo/client';
 import { gql } from '@apollo/client'
-import { IAbilityScores } from './model';
+import { IAbilityScores } from '../../../../store/characterSheet/model';
+import { userVar } from '../../../../store/User/model';
 
 // Schema
 export const FIND_MANY_SHEETS_BY_USER = gql`
@@ -29,3 +31,15 @@ export interface Data extends Array<{
     description: string;
     abilityScores: IAbilityScores;
 }> { }
+
+export const useFindManySheetsByUser = () => {
+    const { loading, error, data } = useQuery(
+        FIND_MANY_SHEETS_BY_USER,
+        {variables: {
+            user: userVar().name
+        } as Variables}
+    )
+
+    return { loading, error, data };
+}
+

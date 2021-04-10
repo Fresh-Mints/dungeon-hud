@@ -1,15 +1,14 @@
-import { gql } from '@apollo/client';
-import { IAbilityScores } from './model';
-import { QueryResult as IQueryResult } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
+import { IAbilityScores } from '../../../../store/characterSheet/model';
 
-export const CREATE_CHARACTERSHEET = gql`
-    mutation createCharacterSheet(
+export const UPDATE_CHARACTERSHEET = gql`
+    mutation updateCharacterSheet(
         $name: String,
         $description: String,
         $abilityScores: AbilityScores,
         $user: String
     ) {
-        createCharacterSheet(
+       updateCharacterSheet(
             name: $name
             description: $description
             abilityScores: $abilityScores
@@ -24,6 +23,7 @@ export const CREATE_CHARACTERSHEET = gql`
 
 // input
 export interface Variables {
+    _id: string;
     name: string;
     description: string;
     abilityScores: IAbilityScores;
@@ -35,4 +35,10 @@ export interface Data {
     name: string;
     description: string;
     abilityScores: string;
+}
+
+export const useUpdateSheet = () => {
+    const [updateSheet] = useMutation(UPDATE_CHARACTERSHEET);
+
+    return { updateSheet }
 }

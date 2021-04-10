@@ -1,5 +1,6 @@
+import { useQuery } from '@apollo/client';
 import { gql } from '@apollo/client'
-import { IAbilityScores } from './model';
+import { IAbilityScores, characterVar } from '../../../../store/characterSheet/model';
 
 // Schema
 export const FIND_ONE_SHEET_BY_ID = gql`
@@ -44,4 +45,15 @@ export interface Data {
     walkingSpeed: number;
     abilityScores: IAbilityScores
     description: string;
+}
+
+export const useFindSheetById = () => {
+    const { loading, error, data } = useQuery(
+        FIND_ONE_SHEET_BY_ID,
+        {variables: {
+            _id: characterVar()._id
+        } as Variables}
+    )
+
+    return { loading, error, data }
 }

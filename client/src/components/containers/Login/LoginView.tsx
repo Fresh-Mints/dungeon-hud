@@ -1,6 +1,6 @@
 import { TextField } from '@material-ui/core';
 import React, { FormEvent, useState } from 'react';
-import { login } from '../../../store/User';
+import { login } from './hooks';
 
 interface LoginInput {
     variables: login.Variables

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ICharacterSheet } from '../../../store/CharacterSheet/model';
+import { ICharacterSheet } from '../../../store/characterSheet/model';
 import styles from './CharacterSelect.module.scss';
 
 interface IProps {
