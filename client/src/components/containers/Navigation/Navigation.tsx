@@ -9,7 +9,10 @@ interface Navigation {
 export const Navigation = () => {
     return (
         <ul className={styles.Navigation}>
-            <NavigationItem route="CharacterSheet">
+            <NavigationItem route="login">
+                Login/Sign Up Here
+            </NavigationItem>
+            <NavigationItem route="characterSheet">
                 Character Sheet
             </NavigationItem>
             <NavigationItem route="Examples">

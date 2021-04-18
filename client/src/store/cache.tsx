@@ -15,7 +15,17 @@ export const cache: InMemoryCache = new InMemoryCache({
                     read() {
                         return userVar
                     }
-                }
+                },
+                login: {
+                    read() {
+                        return userVar
+                    }
+                },
+                signUp: {
+                    read() {
+                        return userVar
+                    }
+                },
             }
         }
     }

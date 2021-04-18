@@ -48,7 +48,7 @@ export interface Data {
 }
 
 export const useFindSheetById = () => {
-    const { loading, error, data } = useQuery(
+    const { loading, error, data } = useQuery<Data, Variables>(
         FIND_ONE_SHEET_BY_ID,
         {variables: {
             _id: characterVar()._id

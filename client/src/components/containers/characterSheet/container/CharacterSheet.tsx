@@ -21,7 +21,7 @@ export const CharacterSheet = () => {
             <CharacterSheetView
                 characterId = {characterVar()._id}
                 character = {data}  
-                username = {userVar().name}
+                username = {userVar().firstName}
                 createCharacterSheet={createSheet}
                 updateCharacterSheet={updateSheet}
             />      

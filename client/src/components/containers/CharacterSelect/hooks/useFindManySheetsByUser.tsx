@@ -36,7 +36,7 @@ export const useFindManySheetsByUser = () => {
     const { loading, error, data } = useQuery(
         FIND_MANY_SHEETS_BY_USER,
         {variables: {
-            user: userVar().name
+            user: userVar()._id
         } as Variables}
     )
 

@@ -2,13 +2,15 @@ import { makeVar } from "@apollo/client";
 
 export interface IUser {
     _id: string;
-    name: string;
+    firstName: string;
+    lastName: string;
     email: string;
 }
 
 export const emptyUser = {
     _id: '',
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
 }
 

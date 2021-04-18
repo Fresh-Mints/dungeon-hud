@@ -1,23 +1,21 @@
-import { TextField } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import React, { FormEvent, useState } from 'react';
 import { login } from './hooks';
 
-interface LoginInput {
-    variables: login.Variables
-}
-
 interface IProps {
-    login: (loginInput: LoginInput) => void;
+    login: (loginInput: login.LoginInput) => void;
 }
 
 const LoginView = (props: IProps) => {
     const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     const submitHandler = (event: FormEvent) => {
         event.preventDefault();
         props.login({
             variables: {
                 email: email,
+                password: password,
             },
         });
     };
@@ -27,7 +25,17 @@ const LoginView = (props: IProps) => {
             <TextField
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
-            />  
+                label='Email'
+            />
+            <TextField
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                label='Password'
+                type='password'
+            />
+            <Button onClick={submitHandler} variant='outlined' color='primary'>
+                Login
+            </Button>  
         </form>
         
     )

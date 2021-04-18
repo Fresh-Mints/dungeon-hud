@@ -5,12 +5,15 @@ import { useLazyQuery } from '@apollo/client';
 export const LOGIN = gql`
     query login(
         $email: String!
+        $password: String!
     ) {
         login(
             email: $email
+            password: $password
         ) {
             _id
-            name
+            firstName
+            lastName
             email
         }
     }
@@ -19,13 +22,19 @@ export const LOGIN = gql`
 // input
 export interface Variables {
     email: string;
+    password: string;
 }
 
 // output
 export interface Data {
     _id: string;
-    name: string;
+    firstName: string;
+    lastName: string;
     email: string;
+}
+
+export interface LoginInput {
+    variables: Variables
 }
 
 export const useLogin = () => {
