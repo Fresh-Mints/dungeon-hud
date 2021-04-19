@@ -1,6 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { Prop } from '@nestjs/mongoose';
-import { Types } from 'mongoose';
+import { Prop, SchemaFactory } from '@nestjs/mongoose';
+import { Document, Types } from 'mongoose';
 
 @ObjectType()
 export class User {
@@ -28,3 +28,7 @@ export class User {
   @Prop({required: true})
   lastName: string;
 }
+
+export type UserDocument = User & Document;
+
+export const UserSchema = SchemaFactory.createForClass(User);

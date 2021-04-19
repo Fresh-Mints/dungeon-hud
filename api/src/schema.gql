@@ -24,7 +24,7 @@ type Mutation {
 
 type Query {
   characterSheet(_id: String!): CharacterSheet!
-  findCharacterSheetsByUser(_user: String!): CharacterSheet!
+  findCharacterSheetsByUser(user: String!): [CharacterSheet!]!
 }
 
 input UpdateCharacterSheetInput {

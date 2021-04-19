@@ -4,17 +4,13 @@ import { Types } from 'mongoose';
 
 @InputType()
 export class CreateUserInput {
-  @Field(() => String, { description: 'Example field (placeholder)' })
+  @Field(() => String, {description: 'email'})
   @Prop({ required: true})
-  username: string;
+  email: string;
 
   @Field(() => String, { description: 'Password'})
   @Prop({ required: true})
   password: string;
-
-  @Field(() => String, {description: 'email'})
-  @Prop({ required: true})
-  email: string;
 
   @Field(() => String, {description: 'First Name'})
   @Prop({ required: true })
