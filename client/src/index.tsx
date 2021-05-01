@@ -32,9 +32,9 @@ const authLink = setContext((_, { headers}) => {
 });
 // websocket + auth link
 const wsLink = new WebSocketLink({
-  uri: process.env.API_WS_URI ?? 'ws://http://127.0.0.1:4000/subscriptions',
+  uri: process.env.API_WS_URI ?? 'ws://http://127.0.0.1:4000/graphql',
   options: {
-    reconnect: true,
+    // reconnect: true,
     connectionParams: {
       isWebSocket: true,
       headers: {

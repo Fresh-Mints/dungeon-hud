@@ -33,8 +33,8 @@ input CreateUserInput {
 
 type Mutation {
   createCharacterSheet(createCharacterSheetInput: CreateCharacterSheetInput!): CharacterSheet!
-  createUser(createUserInput: CreateUserInput!): User!
   removeUser(id: Int!): User!
+  signUp(createUserInput: CreateUserInput!): User!
   updateCharacterSheet(updateSheetInp: UpdateCharacterSheetInput!): CharacterSheet!
   updateUser(updateUserInput: UpdateUserInput!): User!
 }
@@ -43,6 +43,10 @@ type Query {
   findManySheetsByUser(user: String!): [CharacterSheet!]!
   findOneSheetById(_id: String!): CharacterSheet!
   user(email: String!, password: String!): User!
+}
+
+type Subscription {
+  testSubscription: String!
 }
 
 input UpdateCharacterSheetInput {

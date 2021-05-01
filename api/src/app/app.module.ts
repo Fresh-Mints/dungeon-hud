@@ -9,6 +9,7 @@ import { join } from 'path';
 import { LoggingPlugin } from './app.plugin';
 import { AuthModule } from 'src/auth/auth.module';
 import { UserModule } from 'src/user/user.module';
+import { EventsModule } from 'src/events/events.module';
 
 @Module({
   imports: [
@@ -23,10 +24,15 @@ import { UserModule } from 'src/user/user.module';
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
       playground: true,
+      installSubscriptionHandlers: true,
+      subscriptions: {
+        keepAlive: 5000,
+      }
     }),
     AuthModule,
     CharacterSheetModule,
     UserModule,
+    EventsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
