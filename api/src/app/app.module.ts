@@ -7,6 +7,8 @@ import { AbilityScoreModule } from '../ability-score/ability-score.module';
 import { CharacterSheetModule } from '../character-sheet/character-sheet.module';
 import { join } from 'path';
 import { LoggingPlugin } from './app.plugin';
+import { AuthModule } from 'src/auth/auth.module';
+import { UserModule } from 'src/user/user.module';
 
 @Module({
   imports: [
@@ -17,11 +19,14 @@ import { LoggingPlugin } from './app.plugin';
       autoIndex: true,
     }),
     GraphQLModule.forRoot({
+      context: ({req, connection }) => connection ? { req: connection.context } : { req },
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
       playground: true,
     }),
+    AuthModule,
     CharacterSheetModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

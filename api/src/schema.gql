@@ -17,14 +17,32 @@ input CreateCharacterSheetInput {
   user: String!
 }
 
+input CreateUserInput {
+  """email"""
+  email: String!
+
+  """First Name"""
+  firstName: String!
+
+  """Last Name"""
+  lastName: String!
+
+  """Password"""
+  password: String!
+}
+
 type Mutation {
   createCharacterSheet(createCharacterSheetInput: CreateCharacterSheetInput!): CharacterSheet!
+  createUser(createUserInput: CreateUserInput!): User!
+  removeUser(id: Int!): User!
   updateCharacterSheet(updateSheetInp: UpdateCharacterSheetInput!): CharacterSheet!
+  updateUser(updateUserInput: UpdateUserInput!): User!
 }
 
 type Query {
-  characterSheet(_id: String!): CharacterSheet!
-  findCharacterSheetsByUser(user: String!): [CharacterSheet!]!
+  findManySheetsByUser(user: String!): [CharacterSheet!]!
+  findOneSheetById(_id: String!): CharacterSheet!
+  user(email: String!, password: String!): User!
 }
 
 input UpdateCharacterSheetInput {
@@ -33,4 +51,39 @@ input UpdateCharacterSheetInput {
   description: String
   name: String
   user: String
+}
+
+input UpdateUserInput {
+  """email"""
+  email: String
+
+  """First Name"""
+  firstName: String
+  id: Int!
+
+  """Last Name"""
+  lastName: String
+
+  """Password"""
+  password: String
+}
+
+type User {
+  """id"""
+  _id: String!
+
+  """Email"""
+  email: String!
+
+  """First Name"""
+  firstName: String!
+
+  """Last Name"""
+  lastName: String!
+
+  """Password"""
+  password: String!
+
+  """Name"""
+  username: String!
 }
