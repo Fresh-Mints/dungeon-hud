@@ -1,49 +1,54 @@
-import { gql } from '@apollo/client'
-import { useLazyQuery } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client'
+import { onError } from '@apollo/client/link/error';
 
 // Schema
 export const SIGN_UP = gql`
-    query signUp(
-        $email: String!
-        $password: String!
-        $firstName: String!
-        $lastName: String!
+    mutation signUp(
+        $CreateUserInput: CreateUserInput!
     ) {
         signUp(
-            email: $email
-            password: $password
-            firstName: $firstName
-            lastName: $lastName
+            CreateUserInput: $CreateUserInput
         ) {
             _id
             firstName
             lastName
             email
+            token
         }
     }
 `;
-
-// input
-export interface Variables {
-    email: string;
-    password: string;
-    firstName: string;
-    lastName: string;
+export interface Input {
+    CreateUserInput: {
+        email: string;
+        password: string;
+        firstName: string;
+        lastName: string;        
+    }
 }
 
-// output
 export interface Data {
     _id: string;
     email: string;
     firstName: string;
     lastName: string;
-}
-
-export interface SignUpInput {
-    variables: Variables
+    token: string;    
 }
 
 export const useSignUp = () => {
-    const [signUpUser, { error, loading, data }] = useLazyQuery(SIGN_UP);
+    const [signUpUser, { error, loading, data }] = useMutation<
+        Data,
+        Input
+        >(SIGN_UP,
+        {
+            onCompleted(data) {
+                if (data) {
+                    localStorage.setItem('token', data.token)
+                }
+            },
+            onError(error) {
+                console.log(`[Mutation Error] error: ${error}`)
+            }
+        }
+    );
     return { signUpUser, error, loading, data }
 }

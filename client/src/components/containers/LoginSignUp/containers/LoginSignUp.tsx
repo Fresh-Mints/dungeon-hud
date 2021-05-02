@@ -4,10 +4,11 @@ import LoginView from '../LoginView';
 import SignUpView from '../SignUpView';
 import { useLogin } from '../hooks/useLogin';
 import { useSignUp } from '../hooks/useSignUp';
+import { userVar } from '../../../../store/User/model';
 
 export const LoginSignUp = () => {
     const { loginUser } = useLogin();
-    const { signUpUser } = useSignUp();
+    const { signUpUser, error, loading } = useSignUp();
 
     return (
         // <QueryResult
@@ -21,8 +22,14 @@ export const LoginSignUp = () => {
                 login={loginUser}
             />
             <SignUpView
-                signUp={signUpUser}
+                signUp={() => signUpUser()}
             />
+            <QueryResult 
+                error={error} 
+                loading={loading}
+            >
+
+            </QueryResult>
         </>
             
     )

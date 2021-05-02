@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { Model, Types } from 'mongoose';
 import { UserService } from '../user/user.service';
 import * as bcrypt from 'bcrypt';

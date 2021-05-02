@@ -21,7 +21,7 @@ export class UserService {
     return `This action returns all user`;
   }
 
-  findOne(id: number) {
+  findOneById(id: Types.ObjectId) {
     return `This action returns a #${id} user`;
   }
 
@@ -29,11 +29,15 @@ export class UserService {
     return this.userModel.findOne({email: email}).exec();
   }
 
-  update(id: number, updateUserInput: UpdateUserInput) {
-    return `This action updates a #${id} user`;
+  update(id: Types.ObjectId, updatedUserInput: UpdateUserInput) {
+    return this.userModel.findOneAndUpdate(
+      {_id: id },
+      {updatedUserInput},
+      {returnOriginal: false}
+    )
   }
 
-  remove(id: number) {
+  remove(id: Types.ObjectId) {
     return `This action removes a #${id} user`;
   }
 

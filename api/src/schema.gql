@@ -33,10 +33,10 @@ input CreateUserInput {
 
 type Mutation {
   createCharacterSheet(createCharacterSheetInput: CreateCharacterSheetInput!): CharacterSheet!
-  removeUser(id: Int!): User!
-  signUp(createUserInput: CreateUserInput!): User!
+  removeUser(id: String!): User!
+  signUp(CreateUserInput: CreateUserInput!): User!
   updateCharacterSheet(updateSheetInp: UpdateCharacterSheetInput!): CharacterSheet!
-  updateUser(updateUserInput: UpdateUserInput!): User!
+  updateUser: User!
 }
 
 type Query {
@@ -57,21 +57,6 @@ input UpdateCharacterSheetInput {
   user: String
 }
 
-input UpdateUserInput {
-  """email"""
-  email: String
-
-  """First Name"""
-  firstName: String
-  id: Int!
-
-  """Last Name"""
-  lastName: String
-
-  """Password"""
-  password: String
-}
-
 type User {
   """id"""
   _id: String!
@@ -87,6 +72,9 @@ type User {
 
   """Password"""
   password: String!
+
+  """Token"""
+  token: String!
 
   """Name"""
   username: String!

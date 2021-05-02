@@ -5,6 +5,7 @@ export interface IUser {
     firstName: string;
     lastName: string;
     email: string;
+    token :string;
 }
 
 export const emptyUser = {
@@ -12,6 +13,7 @@ export const emptyUser = {
     firstName: '',
     lastName: '',
     email: '',
+    token: '',
 }
 
 export const userVar = makeVar<IUser>(

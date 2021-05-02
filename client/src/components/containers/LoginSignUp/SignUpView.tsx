@@ -1,9 +1,10 @@
 import { Button, TextField } from '@material-ui/core';
 import React, { FormEvent, useState } from 'react';
+import { userVar } from '../../../store/User/model';
 import { signUp } from './hooks';
 
 interface IProps {
-    signUp: (loginInput: signUp.SignUpInput) => void;
+    signUp: (loginInput: signUp.Input) => void;
 }
 
 const SignUpView = (props: IProps) => {
@@ -15,12 +16,12 @@ const SignUpView = (props: IProps) => {
     const submitHandler = (event: FormEvent) => {
         event.preventDefault();
         props.signUp({
-            variables: {
+            CreateUserInput: {
                 email: email,
                 password: password,
                 firstName: firstName,
-                lastName: lastName,
-            },
+                lastName: lastName,    
+            }
         });
     };
     

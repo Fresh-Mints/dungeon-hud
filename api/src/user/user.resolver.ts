@@ -4,7 +4,7 @@ import { User } from './user.model';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import * as bcrypt from 'bcrypt';
-import { UseGuards } from '@nestjs/common';
+import { forwardRef, Inject, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth-guard';
 import { CurrentUser } from './user.decorator';
 import { Types } from 'mongoose';
@@ -18,12 +18,12 @@ export class UserResolver {
     ) {}
 
   @Mutation(() => User)
-  async signUp(@Args('createUserInput') createUserInput: CreateUserInput) {
+  async signUp(@Args('CreateUserInput') CreateUserInput: CreateUserInput) {
     const saltOrRounds = 10;
-    createUserInput.password = await bcrypt.hash(createUserInput.password, saltOrRounds);
-    const newUser = await this.userService.create(createUserInput)
-    
-    return this.userService.create(createUserInput);
+    CreateUserInput.password = await bcrypt.hash(CreateUserInput.password, saltOrRounds);
+    const newUser = await this.userService.create(CreateUserInput)
+    const token = await this.authService.login(newUser);
+    return {token, ...newUser};
   }
 
   @Query(() => [User], { name: 'user' })

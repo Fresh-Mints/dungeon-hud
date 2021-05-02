@@ -27,6 +27,9 @@ export class User {
   @Field(() => String, {description: 'Last Name'})
   @Prop({required: true})
   lastName: string;
+
+  @Field(() => String, {description: 'Token'})
+  token: string;
 }
 
 export type UserDocument = User & Document;
