@@ -5,29 +5,37 @@ import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import * as bcrypt from 'bcrypt';
 import { UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from '../auth/gql-auth-guard';
+import { JwtAuthGuard } from '../auth/jwt-auth-guard';
+import { CurrentUser } from './user.decorator';
+import { Types } from 'mongoose';
+import { AuthService } from 'src/auth/auth.service';
 
 @Resolver(() => User)
 export class UserResolver {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly authService: AuthService
+    ) {}
 
   @Mutation(() => User)
   async signUp(@Args('createUserInput') createUserInput: CreateUserInput) {
     const saltOrRounds = 10;
     createUserInput.password = await bcrypt.hash(createUserInput.password, saltOrRounds);
-
+    const newUser = await this.userService.create(createUserInput)
+    
     return this.userService.create(createUserInput);
   }
 
   @Query(() => [User], { name: 'user' })
+  @UseGuards(JwtAuthGuard)
   findAll() {
     return this.userService.findAll();
   }
 
   @Query(() => User, { name: 'user' })
-  @UseGuards(GqlAuthGuard)
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.userService.findOne(id);
+  @UseGuards(JwtAuthGuard)
+  findOneById(@CurrentUser() user: User) {
+    return this.userService.findOneById(user._id);
   }
 
   @Query(() => User, { name: 'user'})
@@ -36,14 +44,14 @@ export class UserResolver {
   }
 
   @Mutation(() => User)
-  @UseGuards(GqlAuthGuard)
-  updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
-    return this.userService.update(updateUserInput.id, updateUserInput);
+  @UseGuards(JwtAuthGuard)
+  updateUser(@CurrentUser() user: User) {
+    return this.userService.update(user._id, user);
   }
 
   @Mutation(() => User)
-  @UseGuards(GqlAuthGuard)
-  removeUser(@Args('id', { type: () => Int }) id: number) {
+  @UseGuards(JwtAuthGuard)
+  removeUser(@Args('id', { type: () => String }) id: Types.ObjectId) {
     return this.userService.remove(id);
   }
 }
