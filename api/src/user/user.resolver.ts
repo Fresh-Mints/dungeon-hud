@@ -40,7 +40,7 @@ export class UserResolver {
     return this.userService.findOneById(user._id);
   }
 
-  @Query(() => User, { name: 'user'})
+  @Query(() => User, { name: 'login'})
   async login(@Args('email') email: string, @Args('password') password: string) {
     return this.userService.login(email, password);
   }

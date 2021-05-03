@@ -31,6 +31,7 @@ export interface Data {
     firstName: string;
     lastName: string;
     email: string;
+    token: string;
 }
 
 export interface LoginInput {

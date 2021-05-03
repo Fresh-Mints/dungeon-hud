@@ -42,7 +42,8 @@ type Mutation {
 type Query {
   findManySheetsByUser(user: String!): [CharacterSheet!]!
   findOneSheetById(_id: String!): CharacterSheet!
-  user(email: String!, password: String!): User!
+  login(email: String!, password: String!): User!
+  user: User!
 }
 
 type Subscription {
