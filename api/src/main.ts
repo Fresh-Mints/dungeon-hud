@@ -4,8 +4,9 @@ import { AppModule } from './app/app.module';
 import { config } from 'dotenv';
 import { WsAdapter } from '@nestjs/platform-ws';
 
+config();
+
 async function bootstrap() {
-  config();
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
   app.useWebSocketAdapter(new WsAdapter(app));
