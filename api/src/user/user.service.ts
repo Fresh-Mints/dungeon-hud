@@ -12,7 +12,7 @@ export class UserService {
     @InjectModel(User.name) private userModel: Model<UserDocument>,
   ) {}
 
-  async create(createUserInput: CreateUserInput) {
+  create(createUserInput: CreateUserInput) {
     const createdUserInput = new this.userModel(createUserInput);
     return createdUserInput.save();
   }

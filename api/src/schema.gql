@@ -75,7 +75,4 @@ type User {
 
   """Token"""
   token: String!
-
-  """Name"""
-  username: String!
 }

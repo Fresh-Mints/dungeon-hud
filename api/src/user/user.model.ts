@@ -1,16 +1,12 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { Prop, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, SchemaFactory, Schema } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 
 @ObjectType()
+@Schema()
 export class User {
   @Field(() => String, { description: 'id' })
-  @Prop({ type: Types.ObjectId, required: true })
   _id: Types.ObjectId;
-
-  @Field(() => String, {description: 'Name'})
-  @Prop({required: true})
-  username: string;
 
   @Field(() => String, {description: 'Password'})
   @Prop({required: true})

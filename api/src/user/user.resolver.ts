@@ -13,15 +13,17 @@ import { AuthService } from 'src/auth/auth.service';
 @Resolver(() => User)
 export class UserResolver {
   constructor(
-    private readonly userService: UserService,
+    private userService: UserService,
     private readonly authService: AuthService
     ) {}
 
   @Mutation(() => User)
   async signUp(@Args('CreateUserInput') CreateUserInput: CreateUserInput) {
+    console.log(CreateUserInput)
     const saltOrRounds = 10;
     CreateUserInput.password = await bcrypt.hash(CreateUserInput.password, saltOrRounds);
     const newUser = await this.userService.create(CreateUserInput)
+    console.log(newUser)
     const token = await this.authService.login(newUser);
     return {token, ...newUser};
   }
