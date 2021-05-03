@@ -3,7 +3,7 @@ import React, { FormEvent, useState } from 'react';
 import { login } from './hooks';
 
 interface IProps {
-    login: (loginInput: login.LoginInput) => void;
+    login: (loginInput: login.Input) => void;
 }
 
 const LoginView = (props: IProps) => {
