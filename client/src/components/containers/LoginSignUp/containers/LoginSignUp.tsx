@@ -22,7 +22,7 @@ export const LoginSignUp = () => {
                 login={loginUser}
             />
             <SignUpView
-                signUp={() => signUpUser()}
+                signUp={signUpUser}
             />
             <QueryResult 
                 error={error} 

@@ -4,7 +4,7 @@ import { userVar } from '../../../store/User/model';
 import { signUp } from './hooks';
 
 interface IProps {
-    signUp: (loginInput: signUp.Input) => void;
+    signUp: (loginInput: signUp.VariablesInput) => void;
 }
 
 const SignUpView = (props: IProps) => {
@@ -16,12 +16,14 @@ const SignUpView = (props: IProps) => {
     const submitHandler = (event: FormEvent) => {
         event.preventDefault();
         props.signUp({
-            CreateUserInput: {
-                email: email,
-                password: password,
-                firstName: firstName,
-                lastName: lastName,    
-            }
+            variables: {
+                CreateUserInput: {
+                    email: email,
+                    password: password,
+                    firstName: firstName,
+                    lastName: lastName,    
+                }
+            }   
         });
     };
     

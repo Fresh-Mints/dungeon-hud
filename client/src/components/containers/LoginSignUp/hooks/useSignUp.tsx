@@ -26,6 +26,10 @@ export interface Input {
     }
 }
 
+export interface VariablesInput {
+    variables: Input;
+}
+
 export interface Data {
     _id: string;
     email: string;
