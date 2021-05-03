@@ -13,7 +13,11 @@ export class User {
   password: string;
 
   @Field(() => String, {description: 'Email'})
-  @Prop({required: true})
+  @Prop({
+    required: true,
+    unique: true,
+    match: /.+\@.+\..|/,
+  })
   email: string;
 
   @Field(() => String, {description: 'First Name'})
