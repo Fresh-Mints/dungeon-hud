@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client'
 import { useLazyQuery } from '@apollo/client';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { UserContext } from '../../../../store/User/UserContext';
 
 // Schema
@@ -29,11 +29,13 @@ export interface Variables {
 
 // output
 export interface Data {
-    _id: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    token: string;
+    login: {
+        _id: string;
+        firstName: string;
+        lastName: string;
+        email: string;
+        token: string;
+    }   
 }
 
 export interface Input {
@@ -42,28 +44,43 @@ export interface Input {
 
 export const useLogin = () => {
     const userContext = useContext(UserContext)
-    
-    const [login, { error, loading, data }] = useLazyQuery<Data, Variables>(LOGIN, {
-            onCompleted(data) {
-                console.log(data)
-                if (data) {
-                    console.log(userContext?.user)
-                    if (userContext?.setUser) {
-                        userContext.setUser({
-                            _id: data._id,
-                            lastName: data.lastName,
-                            firstName: data.firstName,
-                            email: data.email,
-                            token: data.token,
-                        })
-                    }
-                    localStorage.setItem('token', data.token)
-                }
-            },
-            onError(error) {
-                console.log(`[Query Error] error: ${error}`)
-            },
-        });
+    const [login, { loading, data }] = useLazyQuery<Data, Variables>(LOGIN, {
+        onCompleted: (data) => {
+            console.log(data);
+            if (data && userContext?.setUser) {
+                userContext.setUser({
+                    _id: data.login._id,
+                    lastName: data.login.lastName,
+                    firstName: data.login.firstName,
+                    email: data.login.email,
+                    token: data.login.token,
+                })
+                localStorage.setItem('token', data.login.token)
+            }
+        }
+    });
 
-    return { login, error, loading, data }
+    // useEffect(() => {
+    //     if (error) {
+    //         console.log(error.message);
+    //     }
+    // }, [error])
+
+    // useEffect(() => {
+    //     console.log(data);
+    //     if (data && !userContext?.user._id) {
+    //         if (userContext?.setUser) {
+    //             userContext.setUser({
+    //                 _id: data.login._id,
+    //                 lastName: data.login.lastName,
+    //                 firstName: data.login.firstName,
+    //                 email: data.login.email,
+    //                 token: data.login.token,
+    //             })
+    //         }
+    //         localStorage.setItem('token', data.login.token)
+    //     }
+    // }, [data, userContext])
+
+    return { login, loading, data }
 }

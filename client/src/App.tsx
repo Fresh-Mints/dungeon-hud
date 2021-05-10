@@ -9,6 +9,7 @@ import Examples from './components/containers/examples';
 import { LoginSignUp } from './components/containers/LoginSignUp/containers/LoginSignUp';
 import { emptyUser, IUser } from './store/User/model';
 import { UserContext } from './store/User/UserContext';
+import { CharacterSelect } from './components/containers/CharacterSelect/container/CharacterSelect';
 
 
 function App() {
@@ -16,9 +17,9 @@ function App() {
 
   const userContextValue = useMemo(() => ({ user, setUser }), [user, setUser])
   
-  let routes = (
+  const routes = (
     <Switch>
-      <Route path='/characterSheet' component={CharacterSheet} />
+      <Route path='/characterSheet' component={CharacterSelect} />
       <Route path='/examples' component={Examples} />
       <Route path='/login' component={LoginSignUp} />
     </Switch>    

@@ -1,6 +1,8 @@
 import { useQuery } from '@apollo/client';
 import { gql } from '@apollo/client'
+import { useContext } from 'react';
 import { IAbilityScores, characterVar } from '../../../../store/characterSheet/model';
+import { UserContext } from '../../../../store/User/UserContext';
 
 // Schema
 export const FIND_ONE_SHEET_BY_ID = gql`

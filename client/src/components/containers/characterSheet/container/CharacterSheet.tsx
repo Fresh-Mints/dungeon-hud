@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import CharacterSheetView from '../CharacterSheetView';
 import QueryResult from '../../../QueryResult/QueryResult';
 import { characterVar } from '../../../../store/characterSheet/model';
@@ -6,6 +6,7 @@ import { useCreateSheet } from '../hooks/useCreateSheet';
 import { useUpdateSheet } from '../hooks/useUpdateSheet';
 import { useFindSheetById } from '../hooks/useFindSheetById';
 import { userVar } from '../../../../store/User/model';
+import { UserContext } from '../../../../store/User/UserContext';
 
 export const CharacterSheet = () => {
     const { loading, error, data } = useFindSheetById()
