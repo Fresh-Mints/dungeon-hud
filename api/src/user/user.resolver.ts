@@ -42,7 +42,7 @@ export class UserResolver {
 
   @Query(() => User, { name: 'login'})
   async login(@Args('email') email: string, @Args('password') password: string) {
-    return this.userService.login(email, password);
+    return this.authService.validateUser(email, password);
   }
 
   @Mutation(() => User)
