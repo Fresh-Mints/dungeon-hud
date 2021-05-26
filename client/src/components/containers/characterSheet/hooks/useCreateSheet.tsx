@@ -3,16 +3,10 @@ import { IAbilityScores } from '../../../../store/characterSheet/model';
 
 export const CREATE_CHARACTERSHEET = gql`
     mutation createCharacterSheet(
-        $name: String,
-        $description: String,
-        $abilityScores: AbilityScores,
-        $user: String
+        $createCharacterSheetInput: CreateCharacterSheetInput!
     ) {
         createCharacterSheet(
-            name: $name
-            description: $description
-            abilityScores: $abilityScores
-            user: $user
+            createCharacterSheetInput: $createCharacterSheetInput
         ) {
             name
             description
@@ -23,10 +17,12 @@ export const CREATE_CHARACTERSHEET = gql`
 
 // input
 export interface Variables {
-    name: string;
-    description: string;
-    abilityScores: IAbilityScores;
-    user: string;
+    createCharacterSheetInput: {
+        name: string;
+        description: string;
+        abilityScores: IAbilityScores;
+        user: string;
+    }
 }
 
 // output
@@ -37,7 +33,7 @@ export interface Data {
 }
 
 export const useCreateSheet = () => {
-    const [createSheet] = useMutation(CREATE_CHARACTERSHEET);
+    const [createSheet] = useMutation<Data, Variables>(CREATE_CHARACTERSHEET);
 
     return { createSheet }
 }

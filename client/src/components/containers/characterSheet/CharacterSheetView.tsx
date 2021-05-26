@@ -1,7 +1,7 @@
 import { Button, FormControl, InputLabel, makeStyles, MenuItem, Select, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
 import styles from './CharacterSheet.module.scss';
-import { emptyCharacter, ICharacterSheet } from '../../../store/characterSheet/model';
+import { emptyAbilityScores, emptyCharacter, ICharacterSheet } from '../../../store/characterSheet/model';
 import { createCharacterSheet, updateCharacterSheet } from './hooks';
 
 const useStyles = makeStyles({
@@ -32,7 +32,7 @@ interface IProps {
 const CharacterSheetView = (props: IProps) => {
     const classes = useStyles();
     let initCharacter = emptyCharacter;
-    if (props.character) {
+    if (props.character && props.characterId) {
         initCharacter = {...props.character, _id: props.characterId};
     }
     const [ character, setCharacter ] = useState(initCharacter);
@@ -113,18 +113,16 @@ const CharacterSheetView = (props: IProps) => {
 
     const submitHandler = (event: React.FormEvent) => {
         event.preventDefault();
-        props.createCharacterSheet(
-            {
-                variables: 
-                {
-                    _id: character._id,
-                    name: character.name,
-                    abilityScores: character.abilityScores,
-                    description: character.description,
+        props.createCharacterSheet({
+            variables: {
+                createCharacterSheetInput: {
+                    name: character.name ?? '',
+                    abilityScores: character.abilityScores ?? emptyAbilityScores,
+                    description: character.description ?? '',
                     user: props.username,
-                } as updateCharacterSheet.Variables
+                }
             }
-        );
+        });
     };
 
     return (

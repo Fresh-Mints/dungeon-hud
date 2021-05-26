@@ -1,17 +1,18 @@
 import React, { useContext } from 'react';
 import CharacterSheetView from '../CharacterSheetView';
 import QueryResult from '../../../QueryResult/QueryResult';
-import { characterVar } from '../../../../store/characterSheet/model';
 import { useCreateSheet } from '../hooks/useCreateSheet';
 import { useUpdateSheet } from '../hooks/useUpdateSheet';
 import { useFindSheetById } from '../hooks/useFindSheetById';
-import { userVar } from '../../../../store/User/model';
+import { useParams } from 'react-router-dom';
 import { UserContext } from '../../../../store/User/UserContext';
 
 export const CharacterSheet = () => {
-    const { loading, error, data } = useFindSheetById()
+    const id = useParams<string>();
+    const { loading, error, data } = useFindSheetById(id);
     const { createSheet } = useCreateSheet();
     const { updateSheet } = useUpdateSheet();
+    const user = useContext(UserContext)?.user;
 
     return (
         <QueryResult
@@ -20,9 +21,9 @@ export const CharacterSheet = () => {
             data={data}
         >   
             <CharacterSheetView
-                characterId = {characterVar()._id}
+                characterId = {id}
                 character = {data}  
-                username = {userVar().firstName}
+                username = {user?._id ?? ''}
                 createCharacterSheet={createSheet}
                 updateCharacterSheet={updateSheet}
             />      

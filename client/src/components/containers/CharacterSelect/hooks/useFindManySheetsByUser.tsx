@@ -27,23 +27,28 @@ export interface Variables {
 }
 
 // output
-export interface Data extends Array<{
+export interface CharacterSheet {
     _id: string;
     name: string;
     description: string;
     abilityScores: IAbilityScores;
-}> { }
+}
+
+interface FindManySheetsByUserData {
+    findManySheetsByUser: CharacterSheet[];
+}
 
 export const useFindManySheetsByUser = () => {
     const user = useContext(UserContext)?.user;
 
-    const { loading, error, data } = useQuery(
+    const { loading, error, data } = useQuery<FindManySheetsByUserData, Variables>(
         FIND_MANY_SHEETS_BY_USER,
         {variables: {
             user: user?._id
         } as Variables}
     )
+    const sheets = data?.findManySheetsByUser;
 
-    return { loading, error, data };
+    return { loading, error, sheets };
 }
 

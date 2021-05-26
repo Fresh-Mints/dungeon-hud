@@ -49,11 +49,11 @@ export interface Data {
     description: string;
 }
 
-export const useFindSheetById = () => {
+export const useFindSheetById = (id: string) => {
     const { loading, error, data } = useQuery<Data, Variables>(
         FIND_ONE_SHEET_BY_ID,
         {variables: {
-            _id: characterVar()._id
+            _id: id
         } as Variables}
     )
 

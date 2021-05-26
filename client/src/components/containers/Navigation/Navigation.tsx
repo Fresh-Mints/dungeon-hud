@@ -11,13 +11,13 @@ export const Navigation = () => {
         localStorage.setItem('authToken', '');
     };
     let userNav = ( 
-        <NavigationItem route="login">
+        <NavigationItem route="/login">
             Login/Sign Up Here
         </NavigationItem>
     );
     if (user?.user._id) {
         userNav = (
-            <NavigationItem route="" onClick={logout}>
+            <NavigationItem route="/" onClick={logout}>
                 Logout
             </NavigationItem>
         );
@@ -25,10 +25,10 @@ export const Navigation = () => {
     return (
         <ul className={styles.Navigation}>
             {userNav}
-            <NavigationItem route="characterSheet">
+            <NavigationItem route="/characterSheet">
                 Character Sheet
             </NavigationItem>
-            <NavigationItem route="Examples">
+            <NavigationItem route="/Examples">
                 Examples
             </NavigationItem>
         </ul>

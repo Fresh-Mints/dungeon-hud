@@ -1,13 +1,14 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styles from './App.module.css';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { Navigation } from './components/containers/Navigation/Navigation';
 
 import {CharacterSheet} from './components/containers/characterSheet/container/CharacterSheet';
+import {CreateCharacterSheet} from './components/containers/characterSheet/container/CreateCharacterSheet';
 
 import Examples from './components/containers/examples';
 import { LoginSignUp } from './components/containers/LoginSignUp/containers/LoginSignUp';
-import { emptyUser, IUser } from './store/User/model';
+import { emptyUser } from './store/User/model';
 import { UserContext } from './store/User/UserContext';
 import { CharacterSelect } from './components/containers/CharacterSelect/container/CharacterSelect';
 
@@ -19,6 +20,8 @@ function App() {
   
   const routes = (
     <Switch>
+      <Route path='/characterSheet/create' component={CreateCharacterSheet} />
+      <Route path='/characterSheet/:id' component={CharacterSheet} />
       <Route path='/characterSheet' component={CharacterSelect} />
       <Route path='/examples' component={Examples} />
       <Route path='/login' component={LoginSignUp} />
