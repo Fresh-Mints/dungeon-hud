@@ -16,7 +16,14 @@ export const UPDATE_CHARACTERSHEET = gql`
         ) {
             name
             description
-            abilityScores
+            abilityScores {
+                strength
+                dexterity
+                constitution
+                wisdom
+                intelligence
+                charisma
+            }
         }
     }
 `;

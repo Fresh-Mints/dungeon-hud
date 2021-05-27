@@ -33,6 +33,7 @@ import { EventsModule } from 'src/events/events.module';
     CharacterSheetModule,
     UserModule,
     EventsModule,
+    AbilityScoreModule,
   ],
   controllers: [AppController],
   providers: [AppService],

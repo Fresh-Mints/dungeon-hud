@@ -2,16 +2,34 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type AbilityScores {
+  charisma: Float!
+  constitution: Float!
+  dexterity: Float!
+  intelligence: Float!
+  strength: Float!
+  wisdom: Float!
+}
+
 type CharacterSheet {
   _id: String!
-  abilityScores: [String!]!
+  abilityScores: AbilityScores!
   description: String!
   name: String!
   user: String!
 }
 
+input CreateAbilityScoreInput {
+  charisma: Float!
+  constitution: Float!
+  dexterity: Float!
+  intelligence: Float!
+  strength: Float!
+  wisdom: Float!
+}
+
 input CreateCharacterSheetInput {
-  abilityScores: [String!]!
+  abilityScores: CreateAbilityScoreInput!
   description: String!
   name: String!
   user: String!
@@ -32,6 +50,7 @@ input CreateUserInput {
 }
 
 type Mutation {
+  createAbilityScores(payload: CreateAbilityScoreInput!): AbilityScores!
   createCharacterSheet(createCharacterSheetInput: CreateCharacterSheetInput!): CharacterSheet!
   removeUser(id: String!): User!
   signUp(CreateUserInput: CreateUserInput!): User!
@@ -40,6 +59,7 @@ type Mutation {
 }
 
 type Query {
+  abilityScore(_id: String!): AbilityScores!
   findManySheetsByUser(user: String!): [CharacterSheet!]!
   findOneSheetById(_id: String!): CharacterSheet!
   login(email: String!, password: String!): User!

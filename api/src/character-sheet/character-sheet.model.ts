@@ -17,7 +17,7 @@ export class CharacterSheet {
     @Prop()
     name: string;
 
-    @Field(() => [String])
+    @Field(() => AbilityScores)
     @Prop({ type: Types.ObjectId, ref: AbilityScores.name })
     abilityScores: Types.ObjectId;
 

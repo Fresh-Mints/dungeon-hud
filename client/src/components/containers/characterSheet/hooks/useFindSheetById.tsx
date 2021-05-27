@@ -22,7 +22,14 @@ export const FIND_ONE_SHEET_BY_ID = gql`
             armorClass
             initiative
             walkingSpeed
-            abilityScores
+            abilityScores {
+                strength
+                dexterity
+                constitution
+                wisdom
+                intelligence
+                charisma
+            } 
             description
         }
     }

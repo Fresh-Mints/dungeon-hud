@@ -1,5 +1,6 @@
 import { AbilityScores } from '../../ability-score/ability-score.model';
 import { Field, InputType } from '@nestjs/graphql';
+import { CreateAbilityScoreInput } from 'src/ability-score/dto';
 
 @InputType()
 export class CreateCharacterSheetInput {
@@ -9,7 +10,7 @@ export class CreateCharacterSheetInput {
     @Field(() => String)
     user: string;
 
-    @Field(() => [String])
+    @Field(() => CreateAbilityScoreInput)
     abilityScores: AbilityScores;
 
     @Field(() => String)

@@ -16,7 +16,14 @@ export const FIND_MANY_SHEETS_BY_USER = gql`
             _id
             name
             description
-            abilityScores
+            abilityScores {
+                strength
+                dexterity
+                constitution
+                wisdom
+                intelligence
+                charisma
+            }
         }
     }
 `;
