@@ -7,8 +7,12 @@ import { useFindSheetById } from '../hooks/useFindSheetById';
 import { useParams } from 'react-router-dom';
 import { UserContext } from '../../../../store/User/UserContext';
 
+interface ParamTypes {
+    id: string;
+}
+
 export const CharacterSheet = () => {
-    const id = useParams<string>();
+    const id = useParams<ParamTypes>().id;
     const { loading, error, data } = useFindSheetById(id);
     const { createSheet } = useCreateSheet();
     const { updateSheet } = useUpdateSheet();
@@ -22,7 +26,7 @@ export const CharacterSheet = () => {
         >   
             <CharacterSheetView
                 characterId = {id}
-                character = {data}  
+                character = {data?.findOneSheetById}  
                 username = {user?._id ?? ''}
                 createCharacterSheet={createSheet}
                 updateCharacterSheet={updateSheet}

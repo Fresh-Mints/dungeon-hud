@@ -13,15 +13,6 @@ export const FIND_ONE_SHEET_BY_ID = gql`
             _id: $_id
         ) {
             name
-            class
-            level
-            hp {
-                current
-                max
-            }
-            armorClass
-            initiative
-            walkingSpeed
             abilityScores {
                 strength
                 dexterity
@@ -31,6 +22,15 @@ export const FIND_ONE_SHEET_BY_ID = gql`
                 charisma
             } 
             description
+            # class
+            # level
+            # hp {
+            #     current
+            #     max
+            # }
+            # armorClass
+            # initiative
+            # walkingSpeed   
         }
     }
 `;
@@ -42,18 +42,20 @@ export interface Variables {
 
 // output
 export interface Data {
-    name: string;
-    class: string;
-    level: number;
-    hp: {
-        current: number;
-        max: number;
-    };
-    armorClass: number;
-    initiative: number;
-    walkingSpeed: number;
-    abilityScores: IAbilityScores
-    description: string;
+    findOneSheetById: {
+        name: string;
+        class?: string;
+        level?: number;
+        hp?: {
+            current: number;
+            max: number;
+        };
+        armorClass?: number;
+        initiative?: number;
+        walkingSpeed?: number;
+        abilityScores: IAbilityScores
+        description: string;
+    }
 }
 
 export const useFindSheetById = (id: string) => {

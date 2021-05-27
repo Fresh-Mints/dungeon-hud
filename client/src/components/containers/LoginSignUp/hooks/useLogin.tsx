@@ -55,7 +55,7 @@ export const useLogin = () => {
                     email: data.login.email,
                     token: data.login.token,
                 })
-                localStorage.setItem('token', data.login.token)
+                localStorage.setItem('authToken', data.login.token)
             }
         }
     });

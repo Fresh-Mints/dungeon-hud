@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import styles from './App.module.css';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 import { Navigation } from './components/containers/Navigation/Navigation';
 
 import {CharacterSheet} from './components/containers/characterSheet/container/CharacterSheet';
@@ -20,11 +20,18 @@ function App() {
   
   const routes = (
     <Switch>
-      <Route path='/characterSheet/create' component={CreateCharacterSheet} />
-      <Route path='/characterSheet/:id' component={CharacterSheet} />
-      <Route path='/characterSheet' component={CharacterSelect} />
       <Route path='/examples' component={Examples} />
       <Route path='/login' component={LoginSignUp} />
+      
+      <Route path='/characterSheet/create'>
+        {!user._id ? <Redirect to='/login' /> : <CreateCharacterSheet />}
+      </Route>
+      <Route path='/characterSheet/:id'>
+        {!user._id ? <Redirect to='/login' /> : <CharacterSheet />}
+      </Route>
+      <Route path='/characterSheet/'>
+        {!user._id ? <Redirect to='/login' /> : <CharacterSelect />}
+      </Route>
     </Switch>    
   );
 
