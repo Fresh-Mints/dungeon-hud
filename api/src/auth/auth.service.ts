@@ -18,6 +18,8 @@ export class AuthService {
         const isMatch = await bcrypt.compare(password, user.toObject().password)
         if (isMatch && user) {
             const { password, ...result } = user
+            const token = await this.login(user)
+            user.token = token.access_token;
             return user
         }
         return null;
